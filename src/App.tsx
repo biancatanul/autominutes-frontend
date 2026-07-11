@@ -1,14 +1,7 @@
-import './App.css';
-import ProfilePage from '@pages/ProfilePage/ProfilePage';
+import Home from "./components/pages/Home/Home";
 
 function App() {
-  return (
-    <>
-      <section id="center">
-        <ProfilePage />
-      </section>
-    </>
-  );
+  return <Home />;
 }
 
 export default App;
