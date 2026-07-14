@@ -1,0 +1,38 @@
+.meeting-options {
+    display: flex;
+    gap: 10px;
+    padding: 18px;
+    background: #f5efff;
+    border-radius: 10px;
+    margin: 20px 0; 
+}
+
+.option-btn {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+
+    padding: 16px;
+    background: transparent;
+    border: none;
+    border-radius: 10px;
+
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.option-btn:hover {
+    background: #e9dcff;
+    color: #6d4bc3;
+}
+
+.option-btn svg {
+    color: #4f4e4e;
+}
+
+.option-btn span {
+    font-size: 14px;
+    font-weight: 500;
+}

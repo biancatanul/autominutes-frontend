@@ -2,6 +2,8 @@ import Sidebar from "../../organisms/UserCard/Sidebar";
 import Searchbar from "../../organisms/UserCard/Searchbar";
 import "./Home.css";
 import { useState } from "react";
+import MeetingOptions from "@organisms/UserCard/MeetingOptions";
+import MeetingForm from "@organisms/UserCard/MeetingForm"
 
 function Home() {
   const [search, setSearch] = useState("");
@@ -23,6 +25,12 @@ function Home() {
           />
 
         <h1>New Meeting</h1>
+
+        <MeetingOptions />
+
+        <MeetingForm />
+
+        <h2>Recent meetings</h2>
 
       </main>
     </div>
