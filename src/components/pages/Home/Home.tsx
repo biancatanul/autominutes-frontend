@@ -1,9 +1,9 @@
-import Sidebar from "../../organisms/UserCard/Sidebar";
-import Searchbar from "../../organisms/UserCard/Searchbar";
+import Sidebar from "../../organisms/Sidebar/Sidebar";
+import Searchbar from "../../organisms/Searchbar/Searchbar";
 import "./Home.css";
 import { useState } from "react";
-import MeetingOptions from "@organisms/UserCard/MeetingOptions";
-import MeetingForm from "@organisms/UserCard/MeetingForm"
+import MeetingOptions from "@organisms/MeetingOptions/MeetingOptions";
+import MeetingForm from "@organisms/MeetingForm/MeetingForm"
 
 function Home() {
   const [search, setSearch] = useState("");
