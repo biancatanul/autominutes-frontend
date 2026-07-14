@@ -1,0 +1,35 @@
+.recent-meetings{
+    display:flex;
+    gap:25px;
+    flex-wrap:wrap;
+}
+
+.no-meetings {
+    width: 320px;
+    min-height: 160px;
+
+    background: #F5F0FA;
+    border: 1px solid #e6ddf300;
+    border-radius: 10px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+
+    padding: 24px;
+}
+
+.no-meetings h3 {
+    margin: 12px 0 8px 0;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.no-meetings p {
+    margin: 0;
+    color: #555;
+    line-height: 1.4;
+}

@@ -1,0 +1,9 @@
+.dark-mode-toggle {
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid #6d5dd300;
+    background-color: #f5efff;
+}
