@@ -31,7 +31,6 @@
 
 .meeting-form input:focus {
     border-color: #6c4de6;
-    box-shadow: 0 0 0 3px rgba(108,77,230,.12);
 }
 
 .meeting-form input::placeholder {
@@ -52,7 +51,7 @@
 }
 
 .capturing:hover {
-    background: #634fd0;
+    background: #7e71c5;
 }
 
 .name-section {

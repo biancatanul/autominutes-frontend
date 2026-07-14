@@ -1,5 +1,6 @@
 import { useState } from "react";   
 import "./MeetingForm.css"
+import Button from "@atoms/Button/Button";
 
 export default function MeetingForm() {
 
@@ -17,7 +18,9 @@ export default function MeetingForm() {
                     onChange={(e)=>setUrl(e.target.value)}
                 />
 
-                <button className="capturing">Start Capturing</button>
+                <Button 
+                    text = "Start Capturing"
+                />
 
             </div>
 

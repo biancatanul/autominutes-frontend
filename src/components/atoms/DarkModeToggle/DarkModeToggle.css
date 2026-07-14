@@ -7,3 +7,16 @@
     border: 1px solid #6d5dd300;
     background-color: #f5efff;
 }
+
+.dark-mode-toggle:hover {
+    background: #e9dcff;
+    color: #6d4bc3;
+    cursor: pointer;
+}
+
+.dark-mode-toggle:active {
+    background: #e9dcff;
+    color: #6d4bc3;
+    transform: scale(0.95);
+    transition: transform 0.1s ease-in-out;
+}
