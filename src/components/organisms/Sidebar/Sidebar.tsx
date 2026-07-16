@@ -3,13 +3,11 @@ import {
   FiVideo,
   FiHelpCircle,
   FiSettings,
-} from "react-icons/fi";   // run npm install react-icons 
+} from "react-icons/fi";
+import { NavLink } from "react-router-dom";
 import "./Sidebar.css";
-import { useNavigate } from "react-router-dom"; // run npm install react-router-dom
 
 function Sidebar() {
-  const navigate = useNavigate();
-
   return (
     <aside className="sidebar">
       <div className="logo">
@@ -17,29 +15,45 @@ function Sidebar() {
       </div>
 
       <nav className="sidebar-nav">
-        <button className="nav-item active"
-            onClick={() => navigate("/")}>
-          <FiHome size={22} />  
-          <span>Home</span> 
-        </button>
+        <NavLink
+          to="/"
+          className={({ isActive }) =>
+            isActive ? "nav-item active" : "nav-item"
+          }
+        >
+          <FiHome size={22} />
+          <span>Home</span>
+        </NavLink>
 
-        <button className="nav-item"
-            onClick={() => navigate("/meetings")}>
+        <NavLink
+          to="/meetings"
+          className={({ isActive }) =>
+            isActive ? "nav-item active" : "nav-item"
+          }
+        >
           <FiVideo size={22} />
           <span>Meetings</span>
-        </button>
+        </NavLink>
 
-        <button className="nav-item"
-            onClick={() => navigate("/how-it-works")}>
+        <NavLink
+          to="/how-it-works"
+          className={({ isActive }) =>
+            isActive ? "nav-item active" : "nav-item"
+          }
+        >
           <FiHelpCircle size={22} />
           <span>How it works</span>
-        </button>
+        </NavLink>
 
-        <button className="nav-item"
-            onClick={() => navigate("/settings")}>
+        <NavLink
+          to="/settings"
+          className={({ isActive }) =>
+            isActive ? "nav-item active" : "nav-item"
+          }
+        >
           <FiSettings size={22} />
           <span>Settings</span>
-        </button>
+        </NavLink>
       </nav>
     </aside>
   );

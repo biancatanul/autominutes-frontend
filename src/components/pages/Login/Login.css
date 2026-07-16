@@ -1,0 +1,70 @@
+.login-page {
+    font-family: 'Tahoma', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: #ffffff;
+}
+
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    width: 400px;
+    height: 400px;
+
+    padding: 30px;
+
+    background: #f5efff;
+    border-radius: 10px;
+}
+
+.login-form input {
+    padding: 10px;
+    border: 1px solid #8b7bbf6c;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.login-form input:focus {
+    outline: none;
+    border-color: #6c4de675;
+}
+
+.login-form button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #9488cc;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.login-form button:hover {
+    background: #7e71c5;
+    cursor: pointer;
+}
+
+
+.forgot-password {
+    text-decoration: none;
+    color: #6c4de6a8;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.signup-link {
+    text-decoration: none;
+    color: #6c4de6a8;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+p {
+    font-size: 14px;
+    color: #333;
+}

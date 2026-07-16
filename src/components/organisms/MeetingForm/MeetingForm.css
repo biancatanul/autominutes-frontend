@@ -19,7 +19,7 @@
 
 .meeting-form input {
     height: 48px;
-    border: 1.5px solid #8b7bbf;
+    border: 1.5px solid #8b7bbf6c;
     border-radius: 12px;
     padding: 0 18px;
     font-size: 15px;
@@ -30,7 +30,7 @@
 }
 
 .meeting-form input:focus {
-    border-color: #6c4de6;
+    border-color: #6c4de675;
 }
 
 .meeting-form input::placeholder {
