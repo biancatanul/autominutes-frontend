@@ -16,7 +16,7 @@ function Sidebar() {
 
       <nav className="sidebar-nav">
         <NavLink
-          to="/"
+          to="/home"
           className={({ isActive }) =>
             isActive ? "nav-item active" : "nav-item"
           }
