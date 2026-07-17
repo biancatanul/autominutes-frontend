@@ -2,12 +2,14 @@ import "./Signup.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { apiFetch } from "../../../lib/api";
+import { useAuth } from "../../../context/AuthContext";
 
 function Signup() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+    const { login } = useAuth();
     const navigate = useNavigate();
 
     const handleSignup = async () => {
@@ -27,9 +29,8 @@ function Signup() {
         }
 
         const data = await response.json();
-        localStorage.setItem("access_token", data.access_token);
-
-        navigate("/");
+        login(data.access_token, data.user);
+        navigate("/home");
     };
 
     return (

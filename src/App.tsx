@@ -7,18 +7,40 @@ import HowItWorks from "./components/pages/HowItWorks/HowItWorks";
 import Login from "./components/pages/Login/Login";
 import Signup from "./components/pages/Signup/Signup";
 import ForgotPassword from "./components/pages/ForgotPassword/ForgotPassword";
+import ProtectedRoute from "./routes/ProtectedRoute";
 
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
+    <Routes>
+      <Route path="/home" element={<Home />} />
         <Route path="/Signup" element={<Signup />} />
-        <Route path="/Login" element={<Login onLogin={() => {}} />} />
+        <Route path="/Login" element={<Login />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/meetings" element={<Meetings />} />
-        <Route path="/how-it-works" element={<HowItWorks />} />
-        <Route path="/settings" element={<Settings />} />
+        <Route
+          path="/meetings"
+          element={
+            <ProtectedRoute>
+              <Meetings />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/how-it-works"
+          element={
+            <ProtectedRoute>
+              <HowItWorks />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/settings"
+          element={
+            <ProtectedRoute>
+              <Settings />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

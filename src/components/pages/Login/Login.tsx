@@ -1,15 +1,14 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
 import { useState } from "react";
 import { apiFetch } from "../../../lib/api";
+import { useAuth } from "../../../context/AuthContext";
 
-type LoginProps = {
-    onLogin: () => void;
-};
-
-function Login({ onLogin }: LoginProps) {
+function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const { login } = useAuth();
+    const navigate = useNavigate();
 
     const handleLogin = async () => {
         const response = await apiFetch("/auth/login", {
@@ -24,9 +23,8 @@ function Login({ onLogin }: LoginProps) {
 
         const data = await response.json();
 
-        localStorage.setItem("access_token", data.access_token);
-
-        onLogin(); 
+        login(data.access_token, data.user);
+        navigate("/home");
     };
 
     return (
