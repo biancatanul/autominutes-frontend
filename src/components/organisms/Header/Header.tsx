@@ -5,39 +5,12 @@ import "./Header.css";
 import { useState } from "react";
 import { useEffect } from "react";
 
-type User = {
-    name: string;
-    email: string;
-    avatarUrl: string;
-};
-
-
 function Header() {
     const [search, setSearch] = useState("");
 
     const handleSearch = () => { 
         console.log("Searching for:", search);
     };
-
-    const [user, setUser] = useState<User | null>(null);
-
-    useEffect(() => {
-        
-        fetch("/api/auth/me")
-            .then((res) => {
-                if (!res.ok) {
-                    setUser(null);
-                    return;
-                }
-
-                return res.json();
-            })
-            .then((data) => {
-                if (data) {
-                    setUser(data);
-                }
-            });
-    }, []);
 
     return (
         <div className="header">
@@ -55,7 +28,7 @@ function Header() {
                     />
                 </div>
 
-                <ProfileCard user={user} />
+                <ProfileCard />
             </div>
         </div>
     )
