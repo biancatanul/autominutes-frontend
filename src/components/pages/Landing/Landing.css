@@ -4,3 +4,25 @@
   justify-content: center;
   height: 100vh;
 }
+
+.landing-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.landing-button {
+  padding: 10px 24px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.landing-button-primary {
+  background-color: #2f2a5c;
+  color: white;
+}
+
+.landing-button-secondary {
+  border: 1px solid #2f2a5c;
+  color: #2f2a5c;
+}

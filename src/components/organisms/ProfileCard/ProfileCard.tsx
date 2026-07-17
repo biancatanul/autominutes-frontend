@@ -1,15 +1,28 @@
 import "./ProfileCard.css";
-import Button from "../../atoms/Button/Button";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../context/AuthContext";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 function ProfileCard() {
     const { user, logout } = useAuth();
     const [menuOpen, setMenuOpen] = useState(false);
     const navigate = useNavigate();
+    const cardRef = useRef<HTMLDivElement>(null);
 
-     if (!user) return null;
+    useEffect(() => {
+        if (!menuOpen) return;
+
+        function handleClickOutside(event: MouseEvent) {
+            if (cardRef.current && !cardRef.current.contains(event.target as Node)) {
+                setMenuOpen(false);
+            }
+        }
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, [menuOpen]);
+
+    if (!user) return null;
 
     const handleLogout = () => {
         setMenuOpen(false);
@@ -24,7 +37,7 @@ function ProfileCard() {
         .toUpperCase();
 
     return (
-        <div className="profile-card">
+         <div className="profile-card" ref={cardRef}>
             <button className="profile-card-trigger" onClick={() => setMenuOpen((open) => !open)}>
                 <span className="profile-card-avatar">{initials}</span>
                 <span>{user.name}</span>
