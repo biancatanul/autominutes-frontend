@@ -8,15 +8,24 @@ import Login from "./components/pages/Login/Login";
 import Signup from "./components/pages/Signup/Signup";
 import ForgotPassword from "./components/pages/ForgotPassword/ForgotPassword";
 import ProtectedRoute from "./routes/ProtectedRoute";
+import Landing from "@pages/Landing/Landing";
 
 function App() {
   return (
     <BrowserRouter>
     <Routes>
-      <Route path="/home" element={<Home />} />
+        <Route path="/" element={<Landing />} />
         <Route path="/Signup" element={<Signup />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route
+          path="/home"
+          element={
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="/meetings"
           element={
