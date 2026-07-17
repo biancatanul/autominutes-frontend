@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import "./Login.css";
 import { useState } from "react";
-
+import { apiFetch } from "../../../lib/api";
 
 type LoginProps = {
     onLogin: () => void;
@@ -12,11 +12,8 @@ function Login({ onLogin }: LoginProps) {
     const [password, setPassword] = useState("");
 
     const handleLogin = async () => {
-        const response = await fetch("http://localhost:8080/api/auth/login", {
+        const response = await apiFetch("/auth/login", {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
             body: JSON.stringify({ email, password })
         });
 
@@ -25,9 +22,9 @@ function Login({ onLogin }: LoginProps) {
             return;
         }
 
-        // const user = await response.json();
+        const data = await response.json();
 
-        // console.log("User logged in:", user);
+        localStorage.setItem("access_token", data.access_token);
 
         onLogin(); 
     };
