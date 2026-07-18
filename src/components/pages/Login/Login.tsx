@@ -11,20 +11,28 @@ function Login() {
     const navigate = useNavigate();
 
     const handleLogin = async () => {
-        const response = await apiFetch("/auth/login", {
-            method: "POST",
-            body: JSON.stringify({ email, password })
-        });
+        try {
+            const response = await apiFetch("/auth/login", {
+                method: "POST",
+                body: JSON.stringify({ email, password })
+            });
 
-        if (!response.ok) {
-            alert("Login failed");
-            return;
+            const data = await response.json();
+
+            if (!response.ok) {
+                console.log("Status:", response.status);
+                console.log("Response:", data);
+                alert(data.message || "Login failed");
+                return;
+            }
+
+            login(data.access_token, data.user);
+            navigate("/home");
+
+        } catch (err) {
+            console.error(err);
+            alert("Could not connect to the server.");
         }
-
-        const data = await response.json();
-
-        login(data.access_token, data.user);
-        navigate("/home");
     };
 
     return (

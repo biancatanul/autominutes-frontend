@@ -3,16 +3,26 @@ import { Link } from "react-router-dom";
 
 function Landing() {
   return (
-    <div className="landing">
+    <div className = "landing">
       <h1>AutoMinutes</h1>
-      <div className="landing-actions">
-        <Link to="/Login" className="landing-button landing-button-secondary">
-          Log In
-        </Link>
-        <Link to="/Signup" className="landing-button landing-button-primary">
-          Sign Up
+
+      <br />
+
+      <p>
+        AutoMinutes uses AI to automatically transcribe meetings, generate
+        concise summaries, identify key decisions, and extract action
+        items—so you can stay focused on the conversation instead of taking
+        notes.
+      </p>
+
+      <br />
+
+      <div className="get-started">
+        <Link to="/login">
+          <button>Get Started</button>
         </Link>
       </div>
+
     </div>
   );
 }
