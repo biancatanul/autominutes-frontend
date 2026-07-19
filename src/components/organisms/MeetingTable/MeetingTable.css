@@ -1,0 +1,78 @@
+.meeting-table {
+    background: #f8f3fc;
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 70vh;
+}
+
+.table-header {
+    display: grid;
+    grid-template-columns: 2fr 2fr 1fr 1fr 1fr;
+
+    padding: 18px 24px;
+
+    background: #f0e9f7;
+    font-weight: 600;
+}
+
+.table-header div {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.table-body {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.table-row {
+    display: grid;
+    grid-template-columns: 2fr 2fr 1fr 1fr 1fr;
+
+    padding: 18px 24px;
+
+    border-bottom: 1px solid #ece5f5;
+}
+
+.empty-table {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 100%;
+    color: #777;
+    font-size: 18px;
+}
+
+.action-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.pagination {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+
+    padding: 18px 24px;
+}
+
+.pagination button {
+    width: 34px;
+    height: 34px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: transparent;
+    cursor: pointer;
+}
+
+.pagination button.active {
+    background: #2d2d2d;
+    color: white;
+}

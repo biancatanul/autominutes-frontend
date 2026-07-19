@@ -1,13 +1,22 @@
-import Sidebar from "../../organisms/Sidebar/Sidebar";
+import Sidebar from "@organisms/Sidebar/Sidebar";
+import Header from "@organisms/Header/Header";
+import MeetingTable from "@organisms/MeetingTable/MeetingTable";
+import "./Meetings.css";
 
-function meetings() {
-  return (
-    <div className="meetings">
-      <Sidebar />
-      <h1>Meetings</h1>
-      <p>This is the Meetings page.</p>
-    </div>
-  );
+function Meetings() {
+    return (
+        <div className="meetings-page">
+            <Sidebar />
+
+            <main className="meetings-content">
+                <Header />
+
+                <h1>Meeting archive</h1>
+
+                <MeetingTable />
+            </main>
+        </div>
+    );
 }
 
-export default meetings;
+export default Meetings;

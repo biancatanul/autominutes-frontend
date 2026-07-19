@@ -44,6 +44,15 @@
     cursor: pointer;
 }
 
+.remember-me { 
+    display: flex;
+    justify-content: flex-end;
+}
+
+.remember-me label {
+    font-size: 14px;
+}
+
 .login-form button:hover {
     background: #7e71c5;
     cursor: pointer;

@@ -21,34 +21,44 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
 
-    // check if there is already a token in localStorage and fetch user data if so
     useEffect(() => {
         const token = localStorage.getItem("access_token");
-        if (token) {
+
+        if (!token) {
             setLoading(false);
             return;
         }
+        
+        const storedUser = localStorage.getItem("user");
+
+        if (storedUser) {
+            setUser(JSON.parse(storedUser));
+        }
 
         apiFetch("/auth/me")
-        .then((res) => {
-            if (!res.ok) throw new Error("Invalid session");
-            return res.json();
-        })  
-        .then((data: User) => setUser(data))
-        .catch(() => {
-            localStorage.removeItem("access_token");
-            setUser(null);
-        })
-        .finally(() => setLoading(false));
+            .then((res) => {
+                if (!res.ok) throw new Error("Invalid session");
+                return res.json();
+            })
+            .then((data: User) => {
+                setUser(data);
+            })
+            .catch(() => {
+                localStorage.removeItem("access_token");
+                setUser(null);
+            })
+            .finally(() => setLoading(false));
     }, []);
 
     function login(token: string, user: User) {
         localStorage.setItem("access_token", token);
+        localStorage.setItem("user", JSON.stringify(user));
         setUser(user);
     }
 
     function logout() {
         localStorage.removeItem("access_token");
+        localStorage.removeItem("user");
         setUser(null);
     }
 

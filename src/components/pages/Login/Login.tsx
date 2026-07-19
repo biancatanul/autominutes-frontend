@@ -7,8 +7,10 @@ import { useAuth } from "../../../context/AuthContext";
 function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [staySignedIn, setSignedIn] = useState(false);
     const { login } = useAuth();
     const navigate = useNavigate();
+
 
     const handleLogin = async () => {
         try {
@@ -24,6 +26,14 @@ function Login() {
                 console.log("Response:", data);
                 alert(data.message || "Login failed");
                 return;
+            }
+
+            if (staySignedIn) {
+                localStorage.setItem("access_token", data.access_token);
+                localStorage.setItem("user", JSON.stringify(data.user));
+            } else {
+                sessionStorage.setItem("access_token", data.access_token);
+                sessionStorage.setItem("user", JSON.stringify(data.user));
             }
 
             login(data.access_token, data.user);
@@ -51,6 +61,19 @@ function Login() {
                     value = {password}
                     onChange = {(e) => setPassword(e.target.value)}
                 />
+
+                <div className="remember-me">
+                    <label htmlFor="staySignedIn">
+                        Remember me
+                    </label>
+
+                    <input
+                        type = "checkbox"
+                        id = "staySignedIn"
+                        checked = {staySignedIn}
+                        onChange = {(e) => setSignedIn(e.target.checked)}
+                    />
+                </div>
                 
                 <Link to = "/forgot-password" className = "forgot-password">
                     Forgot Password?
