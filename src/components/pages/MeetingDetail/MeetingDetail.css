@@ -104,3 +104,76 @@
     font-family: inherit;
     resize: vertical;
 }
+
+.ai-results {
+    margin-top: 14px;
+    background: white;
+    border-radius: 8px;
+    padding: 14px;
+}
+
+.ai-results h3 {
+    margin-top: 0;
+    margin-bottom: 6px;
+    font-size: 15px;
+}
+
+.ai-results h3:not(:first-child) {
+    margin-top: 16px;
+}
+
+.action-item-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.action-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: white;
+    border-radius: 8px;
+    padding: 8px 12px;
+    border-left: 4px solid transparent;
+}
+
+.action-item.status-OPEN {
+    border-left-color: #999;
+}
+
+.action-item.status-IN_PROGRESS {
+    border-left-color: #a06b00;
+}
+
+.action-item.status-DONE {
+    border-left-color: #1e7a34;
+}
+
+.action-item.status-UNKNOWN {
+    border-left-color: #999;
+    border-left-style: dashed;
+}
+
+.action-item-description {
+    flex: 1;
+}
+
+.action-item-assignee {
+    font-size: 12px;
+    background: #ece5f5;
+    padding: 2px 8px;
+    border-radius: 999px;
+}
+
+.action-item-deadline {
+    color: #888;
+    font-size: 13px;
+}
+
+.action-item-deadline.overdue {
+    color: #c0392b;
+    font-weight: 600;
+}
