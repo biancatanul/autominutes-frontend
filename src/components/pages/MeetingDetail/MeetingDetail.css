@@ -35,3 +35,71 @@
 .error {
     color: #c0392b;
 }
+
+.success {
+    color: #1e7a34;
+}
+
+.muted {
+    color: #888;
+}
+
+.detail-section {
+    background: #f8f3fc;
+    border-radius: 12px;
+    padding: 18px;
+}
+
+.attendee-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.attendee-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: white;
+    border-radius: 8px;
+    padding: 8px 12px;
+}
+
+.attendee-role {
+    font-size: 12px;
+    background: #ece5f5;
+    padding: 2px 8px;
+    border-radius: 999px;
+}
+
+.attendee-email {
+    color: #888;
+    font-size: 13px;
+    margin-left: auto;
+}
+
+.attendee-form {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+}
+
+.attendee-form input {
+    flex: 1;
+    padding: 8px 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.transcript-input {
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-family: inherit;
+    resize: vertical;
+}
