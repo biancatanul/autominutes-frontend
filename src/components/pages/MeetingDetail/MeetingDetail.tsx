@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type FormEvent, type ChangeEvent } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Sidebar from "@organisms/Sidebar/Sidebar";
 import Header from "@organisms/Header/Header";
@@ -35,7 +35,10 @@ function MeetingDetail() {
     setLoading(true);
     meetingsApi
       .getMeeting(id)
-      .then(setMeeting)
+      .then((data) => {
+        setMeeting(data);
+        setTranscriptText(data.transcript ?? "");
+      })
       .catch((err) => setError(err instanceof Error ? err.message : "Failed to load meeting."))
       .finally(() => setLoading(false));
   }, [id]);
