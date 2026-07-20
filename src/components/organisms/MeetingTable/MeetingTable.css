@@ -35,7 +35,21 @@
     padding: 18px 24px;
 
     border-bottom: 1px solid #ece5f5;
+    cursor: pointer;
 }
+
+.status-badge {
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 13px;
+    text-transform: capitalize;
+    background: #eee;
+}
+
+.status-idle { background: #e0e0e0; }
+.status-processing { background: #fdf0d5; color: #a06b00; }
+.status-completed { background: #dff5e1; color: #1e7a34; }
+.status-failed { background: #fbe3e3; color: #c0392b; }
 
 .empty-table {
     display: flex;

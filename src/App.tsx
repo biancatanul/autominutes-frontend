@@ -9,6 +9,7 @@ import Signup from "./components/pages/Signup/Signup";
 import ForgotPassword from "./components/pages/ForgotPassword/ForgotPassword";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import Landing from "@pages/Landing/Landing";
+import MeetingDetail from "@pages/MeetingDetail/MeetingDetail";
 
 function App() {
   return (
@@ -31,6 +32,14 @@ function App() {
           element={
             <ProtectedRoute>
               <Meetings />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/meetings/:id"
+          element={
+            <ProtectedRoute>
+              <MeetingDetail />
             </ProtectedRoute>
           }
         />

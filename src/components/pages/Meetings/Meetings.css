@@ -11,3 +11,9 @@
     flex-direction: column;
     padding: 32px;
 }
+
+.meetings-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}

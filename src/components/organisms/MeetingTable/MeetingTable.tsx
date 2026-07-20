@@ -1,48 +1,64 @@
+import { useMeetings } from "@/context/MeetingsContext";
 import "./MeetingTable.css";
-import { FiFileText, FiMoreHorizontal } from "react-icons/fi";
+import { FiFileText, FiMoreHorizontal, FiTrash2 } from "react-icons/fi";
+import { useNavigate } from "react-router";
 
-type Meeting = {
-    id: string;
-    title: string;
-    date: string;
-    attendees: number;
-    status: "Completed" | "Processing";
-};
-
-const meetings: Meeting[] = [];
+function formatDate(isoString: string){
+    return new Date(isoString).toLocaleString();
+}
 
 function MeetingTable() {
+
+    const { meetings, loading, error, removeMeeting } = useMeetings();
+    const navigate = useNavigate();
+
+    const handleDelete = async (id: string, title: string) => {
+        if (!window.confirm(`Delete meeting "${title}"? This can't be undone.`)) return;
+        await removeMeeting(id);
+    };
+
     return (
         <div className="meeting-table">
 
             <div className="table-header">
                 <div><FiFileText /> Title</div>
                 <div><FiFileText /> Date and Time</div>
-                <div><FiFileText /> Attendees</div>
                 <div><FiFileText /> Status</div>
                 <div><FiFileText /> Actions</div>
             </div>
 
             <div className="table-body">
 
-                {meetings.length === 0 ? (
-                    <div className="empty-table">
-                        No meetings found.
-                    </div>
+                {loading ? (
+                    <div className="empty-table">Loading meetings...</div>
+                ) : error ? (
+                    <div className="empty-table">{error}</div>
+                ) : meetings.length === 0 ? (
+                    <div className="empty-table">No meetings found.</div>
                 ) : (
                     meetings.map(meeting => (
                         <div
                             key={meeting.id}
                             className="table-row"
+                        onClick={() => navigate(`/meetings/${meeting._id}`)}
                         >
                             <div>{meeting.title}</div>
-                            <div>{meeting.date}</div>
-                            <div>{meeting.attendees}</div>
-                            <div>{meeting.status}</div>
+                            <div>{formatDate(meeting.datetime)}</div>
+                            <div>
+                                <span className={`status-badge status-${meeting.processingStatus}`}>
+                                {meeting.processingStatus}
+                                </span>
+                            </div>
 
                             <div>
-                                <button className="action-btn">
-                                    <FiMoreHorizontal />
+                                 <button
+                                    className="action-btn"
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleDelete(meeting._id, meeting.title);
+                                    }}
+                                    >
+                                    <FiTrash2 />
                                 </button>
                             </div>
                         </div>
@@ -53,13 +69,7 @@ function MeetingTable() {
 
             <div className="pagination">
                 <button className="active">1</button>
-                <button>2</button>
-                <button>3</button>
-                <span>...</span>
-                <button>67</button>
-                <button>68</button>
             </div>
-
         </div>
     );
 }
