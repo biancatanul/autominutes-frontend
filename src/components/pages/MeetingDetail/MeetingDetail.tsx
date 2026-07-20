@@ -7,6 +7,10 @@ import * as attendeesApi from "@/lib/attendees";
 import type { Meeting } from "@/lib/meetings";
 import type { Attendee } from "@/lib/attendees";
 import { useMeetings } from "@/context/MeetingsContext";
+import * as processingApi from "@/lib/processing";
+import * as actionItemsApi from "@/lib/actionItems";
+import type { AiResult } from "@/lib/processing";
+import type { ActionItem, ActionItemStatus } from "@/lib/actionItems";
 import "./MeetingDetail.css";
 
 function MeetingDetail() {
@@ -30,6 +34,13 @@ function MeetingDetail() {
   const [transcriptError, setTranscriptError] = useState<string | null>(null);
   const [transcriptSaved, setTranscriptSaved] = useState(false);
 
+  const [aiResult, setAiResult] = useState<AiResult | null>(null);
+  const [processing, setProcessing] = useState(false);
+  const [processingError, setProcessingError] = useState<string | null>(null);
+
+  const [actionItems, setActionItems] = useState<ActionItem[]>([]);
+  const [actionItemsLoading, setActionItemsLoading] = useState(true);
+
   useEffect(() => {
     if (!id) return;
     setLoading(true);
@@ -52,6 +63,26 @@ function MeetingDetail() {
       .catch(() => setAttendeeError("Failed to load attendees."))
       .finally(() => setAttendeesLoading(false));
   }, [id]);
+
+  useEffect(() => {
+    if (!id) return;
+    setActionItemsLoading(true);
+    actionItemsApi
+      .getActionItems(id)
+      .then(setActionItems)
+      .catch(() => {
+        // page still works without a pre-existing list
+      })
+      .finally(() => setActionItemsLoading(false));
+
+    // results endpoint returns every version ever generated, sorted newest-first
+    processingApi
+      .getResults(id)
+      .then((results) => {
+        if (results.length > 0) setAiResult(results[0]);
+      })
+      .catch(() => {});
+}, [id]);
 
   const handleDeleteMeeting = async () => {
     if (!id || !meeting) return;
@@ -90,6 +121,38 @@ function MeetingDetail() {
     if (!window.confirm(`Remove ${name} from this meeting?`)) return;
     await attendeesApi.deleteAttendee(attendeeId);
     setAttendees((prev) => prev.filter((a) => a._id !== attendeeId));
+  };
+  const handleProcess = async () => {
+    if (!id || !meeting) return;
+    if (!meeting.transcript?.trim()) {
+      setProcessingError("Save a transcript before processing.");
+      return;
+    }
+
+    setProcessing(true);
+    setProcessingError(null);
+    try {
+      const result = await processingApi.processMeeting(id);
+      setAiResult(result.aiResult);
+      setActionItems(result.actionItems);
+      setMeeting((prev) => (prev ? { ...prev, processingStatus: result.status } : prev));
+    } catch (err) {
+      setProcessingError(err instanceof Error ? err.message : "Processing failed.");
+      setMeeting((prev) => (prev ? { ...prev, processingStatus: "failed" } : prev));
+    } finally {
+      setProcessing(false);
+    }
+  };
+
+  const handleActionItemStatusChange = async (itemId: string, status: ActionItemStatus) => {
+    const updated = await actionItemsApi.updateActionItem(itemId, { status });
+    setActionItems((prev) => prev.map((item) => (item._id === itemId ? updated : item)));
+  };
+
+  const handleDeleteActionItem = async (itemId: string, description: string) => {
+    if (!window.confirm(`Delete action item "${description}"?`)) return;
+    await actionItemsApi.deleteActionItem(itemId);
+    setActionItems((prev) => prev.filter((item) => item._id !== itemId));
   };
 
   const handleFileUpload = (e: ChangeEvent<HTMLInputElement>) => {
@@ -216,6 +279,82 @@ function MeetingDetail() {
 
               {transcriptSaved && <p className="success">Transcript saved.</p>}
               {transcriptError && <p className="error">{transcriptError}</p>}
+            </section>
+
+            <section className="detail-section">
+              <h2>AI Processing</h2>
+
+              <button onClick={handleProcess} disabled={processing || !transcript.trim()}>
+                {processing ? "Processing..." : aiResult ? "Reprocess transcript" : "Process transcript"}
+              </button>
+
+              {processingError && (
+                <p className="error">
+                  {processingError}{" "}
+                  <button onClick={handleProcess} disabled={processing}>Retry</button>
+                </p>
+              )}
+
+              {aiResult && (
+                <div className="ai-results">
+                  <h3>Summary</h3>
+                  <p>{aiResult.summary}</p>
+
+                  {aiResult.discussionPoints.length > 0 && (
+                    <>
+                      <h3>Discussion Points</h3>
+                      <ul>
+                        {aiResult.discussionPoints.map((point, i) => (
+                          <li key={i}>{point}</li>
+                        ))}
+                      </ul>
+                    </>
+                  )}
+                </div>
+              )}
+            </section>
+
+            <section className="detail-section">
+              <h2>Action Items ({actionItems.length})</h2>
+
+              {actionItemsLoading ? (
+                <p>Loading action items...</p>
+              ) : actionItems.length === 0 ? (
+                <p className="muted">No action items yet. Process the transcript to generate some.</p>
+              ) : (
+                <ul className="action-item-list">
+                  {actionItems.map((item) => {
+                    const isOverdue =
+                      item.deadline && item.status !== "DONE" && new Date(item.deadline) < new Date();
+
+                    return (
+                      <li key={item._id} className={`action-item status-${item.status}`}>
+                        <span className="action-item-description">{item.description}</span>
+                        {item.assignee && <span className="action-item-assignee">{item.assignee}</span>}
+                        {item.deadline && (
+                          <span className={`action-item-deadline ${isOverdue ? "overdue" : ""}`}>
+                            {new Date(item.deadline).toLocaleDateString()}
+                          </span>
+                        )}
+                        <select
+                          value={item.status}
+                          onChange={(e) =>
+                            handleActionItemStatusChange(item._id, e.target.value as ActionItemStatus)
+                          }
+                        >
+                          <option value="OPEN">Open</option>
+                          <option value="IN_PROGRESS">In progress</option>
+                          <option value="DONE">Done</option>
+                          <option value="UNKNOWN">Unknown</option>
+                        </select>
+                        <button onClick={() => handleDeleteActionItem(item._id, item.description)}>
+                          Delete
+                        </button>
+                      </li>
+                    );
+                  })}
+                </ul>
+              )}
             </section>
           </>
         )}
