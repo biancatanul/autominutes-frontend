@@ -2,14 +2,15 @@ import { useMeetings } from "@/context/MeetingsContext";
 import "./MeetingTable.css";
 import { FiFileText, FiMoreHorizontal, FiTrash2 } from "react-icons/fi";
 import { useNavigate } from "react-router";
+import { Button } from "@atoms/Button/Button";
 
-function formatDate(isoString: string){
-    return new Date(isoString).toLocaleString();
+function formatDate(iso: string){
+    return new Date(iso).toLocaleString();
 }
 
 function MeetingTable() {
 
-    const { meetings, loading, error, removeMeeting } = useMeetings();
+    const { meetings, loading, error, removeMeeting, page, totalPages, setPage } = useMeetings();
     const navigate = useNavigate();
 
     const handleDelete = async (id: string, title: string) => {
@@ -68,7 +69,23 @@ function MeetingTable() {
             </div>
 
             <div className="pagination">
-                <button className="active">1</button>
+                <button disabled={page <= 1} onClick={() => setPage(page - 1)}>
+                    Prev
+                </button>
+
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
+                    <button
+                        key={p}
+                        className={p === page ? "active" : ""}
+                        onClick={() => setPage(p)}
+                    >
+                        {p}
+                    </button>
+                ))}
+
+                <button disabled={page >= totalPages} onClick={() => setPage(page + 1)}>
+                    Next
+                </button>
             </div>
         </div>
     );
