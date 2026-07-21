@@ -2,12 +2,15 @@ import Sidebar from "@organisms/Sidebar/Sidebar";
 import Header from "@organisms/Header/Header";
 import MeetingTable from "@organisms/MeetingTable/MeetingTable";
 import Button from "@atoms/Button/Button";
+import Searchbar from "@organisms/Searchbar/Searchbar";
 import NewMeetingModal from "@organisms/NewMeetingModal/NewMeetingModal";
 import "./Meetings.css";
 import { useState } from "react";
 
 function Meetings() {
     const [showModal, setShowModal] = useState(false);
+
+    const [search, setSearch] = useState("");
     
     return (
         <div className="meetings-page">
@@ -18,8 +21,18 @@ function Meetings() {
 
                 <div className="meetings-title-row">
                     <h1>Meeting archive</h1>
+                </div>
+
+                <div className="searchbar">
+                    <Searchbar 
+                        value = {search}
+                        onChange = {setSearch}
+                        onSearch = {() => {}}
+                        placeholder="Search meeting..."
+                    />
                     <Button text="+ New Meeting" onClick={() => setShowModal(true)} />
                 </div>
+                
 
                 <MeetingTable />
             </main>

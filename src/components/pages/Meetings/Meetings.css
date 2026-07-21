@@ -17,3 +17,9 @@
     align-items: center;
     justify-content: space-between;
 }
+
+.searchbar {
+    padding-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+}
