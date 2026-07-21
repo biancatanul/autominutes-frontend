@@ -25,6 +25,10 @@ export function getActionItems(meetingId: string) {
   );
 }
 
+export function getAllActionItems() {
+  return apiFetch(`/action-items`).then((res) => handle<ActionItem[]>(res));
+}
+
 export function updateActionItem(id: string, input: UpdateActionItemInput) {
   return apiFetch(`/action-items/${id}`, {
     method: "PATCH",
