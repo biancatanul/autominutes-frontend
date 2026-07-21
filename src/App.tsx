@@ -10,6 +10,7 @@ import ForgotPassword from "./components/pages/ForgotPassword/ForgotPassword";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import Landing from "@pages/Landing/Landing";
 import MeetingDetail from "@pages/MeetingDetail/MeetingDetail";
+import ActionItems from "@pages/ActionItems/ActionItems";
 
 function App() {
   return (
@@ -40,6 +41,14 @@ function App() {
           element={
             <ProtectedRoute>
               <MeetingDetail />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/action-items"
+          element={
+            <ProtectedRoute>
+              <ActionItems />
             </ProtectedRoute>
           }
         />

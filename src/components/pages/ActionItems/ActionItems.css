@@ -1,0 +1,44 @@
+.action-items-page {
+    display: flex;
+    height: 100vh;
+    font-family: Tahoma, sans-serif;
+}
+
+.action-items-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 32px;
+    gap: 12px;
+    overflow-y: auto;
+}
+
+.action-item-filters {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.action-item-filters select,
+.action-item-filters input {
+    padding: 8px 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-family: inherit;
+}
+
+.action-item-filters input {
+    flex: 1;
+}
+
+.action-item-group {
+    background: #f8f3fc;
+    border-radius: 12px;
+    padding: 18px;
+}
+
+.action-item-group h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 15px;
+}

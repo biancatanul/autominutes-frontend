@@ -3,6 +3,7 @@ import {
   FiVideo,
   FiHelpCircle,
   FiSettings,
+  FiCheckSquare,
 } from "react-icons/fi";
 import { NavLink } from "react-router-dom";
 import "./Sidebar.css";
@@ -33,6 +34,16 @@ function Sidebar() {
         >
           <FiVideo size={22} />
           <span>Meetings</span>
+        </NavLink>
+
+        <NavLink
+          to="/action-items"
+          className={({ isActive }) =>
+            isActive ? "nav-item active" : "nav-item"
+          }
+        >
+          <FiCheckSquare size={22} />
+          <span>Action Items</span>
         </NavLink>
 
         <NavLink
