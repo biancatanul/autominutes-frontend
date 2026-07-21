@@ -1,8 +1,8 @@
 import { useMeetings } from "@/context/MeetingsContext";
 import "./MeetingTable.css";
-import { FiFileText, FiMoreHorizontal, FiTrash2 } from "react-icons/fi";
-import { useNavigate } from "react-router";
-import { Button } from "@atoms/Button/Button";
+import { FiFileText, FiTrash2 } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
+
 
 function formatDate(iso: string){
     return new Date(iso).toLocaleString();
@@ -39,7 +39,7 @@ function MeetingTable() {
                 ) : (
                     meetings.map(meeting => (
                         <div
-                            key={meeting.id}
+                            key={meeting._id}
                             className="table-row"
                         onClick={() => navigate(`/meetings/${meeting._id}`)}
                         >
