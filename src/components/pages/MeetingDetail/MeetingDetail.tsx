@@ -12,6 +12,7 @@ import * as actionItemsApi from "@/lib/actionItems";
 import type { AiResult } from "@/lib/processing";
 import type { ActionItem, ActionItemStatus } from "@/lib/actionItems";
 import "./MeetingDetail.css";
+import ActionItemsList from "@organisms/ActionItemsList/ActionItemsList";
 
 function MeetingDetail() {
   const { id } = useParams<{ id: string }>();
@@ -322,38 +323,11 @@ function MeetingDetail() {
               ) : actionItems.length === 0 ? (
                 <p className="muted">No action items yet. Process the transcript to generate some.</p>
               ) : (
-                <ul className="action-item-list">
-                  {actionItems.map((item) => {
-                    const isOverdue =
-                      item.deadline && item.status !== "DONE" && new Date(item.deadline) < new Date();
-
-                    return (
-                      <li key={item._id} className={`action-item status-${item.status}`}>
-                        <span className="action-item-description">{item.description}</span>
-                        {item.assignee && <span className="action-item-assignee">{item.assignee}</span>}
-                        {item.deadline && (
-                          <span className={`action-item-deadline ${isOverdue ? "overdue" : ""}`}>
-                            {new Date(item.deadline).toLocaleDateString()}
-                          </span>
-                        )}
-                        <select
-                          value={item.status}
-                          onChange={(e) =>
-                            handleActionItemStatusChange(item._id, e.target.value as ActionItemStatus)
-                          }
-                        >
-                          <option value="OPEN">Open</option>
-                          <option value="IN_PROGRESS">In progress</option>
-                          <option value="DONE">Done</option>
-                          <option value="UNKNOWN">Unknown</option>
-                        </select>
-                        <button onClick={() => handleDeleteActionItem(item._id, item.description)}>
-                          Delete
-                        </button>
-                      </li>
-                    );
-                  })}
-                </ul>
+                <ActionItemsList
+                  items={actionItems}
+                  onStatusChange={handleActionItemStatusChange}
+                  onDelete={handleDeleteActionItem}
+                />
               )}
             </section>
           </>
