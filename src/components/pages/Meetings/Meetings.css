@@ -23,3 +23,24 @@
     display: flex;
     justify-content: space-between;
 }
+.meetings-title-row {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+}
+.meetings-count { color: #777; font-size: 14px; }
+
+.meetings-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin: 16px 0;
+}
+
+.toolbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-left: auto;
+}
