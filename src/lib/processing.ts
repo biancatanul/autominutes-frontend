@@ -1,5 +1,6 @@
 import { apiFetch } from "./api";
 import type { ProcessingStatus } from "./meetings";
+import type { Attendee } from "./attendees";
 
 export type AiResult = {
   _id: string;
@@ -29,6 +30,7 @@ export type ProcessResult = {
   status: ProcessingStatus;
   aiResult: AiResult;
   actionItems: ActionItem[];
+  attendees: Attendee[];
 };
 
 async function handle<T>(response: Response): Promise<T> {

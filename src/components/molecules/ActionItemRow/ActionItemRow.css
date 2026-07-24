@@ -1,47 +1,98 @@
-.action-item {
-    display: flex;
+.action-item-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
     align-items: center;
-    gap: 10px;
-    background: white;
-    border-radius: 8px;
-    padding: 8px 12px;
-    border-left: 4px solid transparent;
+
+    padding: 14px 24px;
+    border-bottom: 1px solid #ece5f5;
 }
 
-.action-item.status-OPEN {
-    border-left-color: #999;
+.action-item-row.with-meeting {
+    grid-template-columns: 2fr 1.4fr 1fr 1fr 1fr 0.6fr;
 }
 
-.action-item.status-IN_PROGRESS {
-    border-left-color: #a06b00;
+.cell {
+    padding-right: 8px;
+    overflow-wrap: anywhere;
 }
 
-.action-item.status-DONE {
-    border-left-color: #1e7a34;
+.cell-meeting a {
+    color: #6a3fae;
+    text-decoration: none;
 }
 
-.action-item.status-UNKNOWN {
-    border-left-color: #999;
-    border-left-style: dashed;
+.cell-meeting a:hover {
+    text-decoration: underline;
 }
 
-.action-item-description {
-    flex: 1;
+.cell-assignee .muted,
+.cell-deadline .muted,
+.cell-meeting .muted {
+    color: #999;
 }
 
-.action-item-assignee {
-    font-size: 12px;
-    background: #ece5f5;
+.deadline-overdue {
+    color: #c0392b;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.overdue-badge {
+    background: #fbe3e3;
+    color: #c0392b;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
     padding: 2px 8px;
     border-radius: 999px;
 }
 
-.action-item-deadline {
-    color: #888;
+.status-select {
+    border: none;
+    border-radius: 999px;
+    padding: 4px 10px;
     font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
 }
 
-.action-item-deadline.overdue {
+.status-select.status-OPEN {
+    background: #e0e0e0;
+    color: #555;
+}
+
+.status-select.status-IN_PROGRESS {
+    background: #fdf0d5;
+    color: #a06b00;
+}
+
+.status-select.status-DONE {
+    background: #dff5e1;
+    color: #1e7a34;
+}
+
+.status-select.status-UNKNOWN {
+    background: #eee;
+    color: #777;
+    border: 1px dashed #bbb;
+}
+
+.cell-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.action-item-row .action-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #888;
+    padding: 4px;
+}
+
+.action-item-row .action-btn:hover {
     color: #c0392b;
-    font-weight: 600;
 }

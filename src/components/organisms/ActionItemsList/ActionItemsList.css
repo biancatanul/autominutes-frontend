@@ -1,7 +1,57 @@
-.action-item-list {
-    list-style: none;
-    padding: 0;
+.action-items-table {
+    background: #f8f3fc;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.action-items-table-header {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+
+    padding: 16px 24px;
+    background: #f0e9f7;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.action-items-table-header.with-meeting {
+    grid-template-columns: 2fr 1.4fr 1fr 1fr 1fr 0.6fr;
+}
+
+.action-items-table-body {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+}
+
+.action-items-table-body .action-item-row:last-child {
+    border-bottom: none;
+}
+
+.pagination {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+
+    padding: 18px 24px;
+}
+
+.pagination button {
+    width: 34px;
+    height: 34px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: transparent;
+    cursor: pointer;
+}
+
+.pagination button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.pagination button.active {
+    background: #2d2d2d;
+    color: white;
 }

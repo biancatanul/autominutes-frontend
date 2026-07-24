@@ -26,7 +26,6 @@ function MeetingDetail() {
   const [attendees, setAttendees] = useState<Attendee[]>([]);
   const [attendeesLoading, setAttendeesLoading] = useState(true);
   const [attendeeName, setAttendeeName] = useState("");
-  const [attendeeEmail, setAttendeeEmail] = useState("");
   const [attendeeRole, setAttendeeRole] = useState("");
   const [attendeeError, setAttendeeError] = useState<string | null>(null);
 
@@ -105,13 +104,11 @@ function MeetingDetail() {
     try {
       const created = await attendeesApi.createAttendee({
         name: attendeeName.trim(),
-        email: attendeeEmail.trim() || undefined,
         role: attendeeRole.trim() || undefined,
         meetingId: id,
       });
       setAttendees((prev) => [...prev, created]);
       setAttendeeName("");
-      setAttendeeEmail("");
       setAttendeeRole("");
     } catch (err) {
       setAttendeeError(err instanceof Error ? err.message : "Failed to add attendee.");
@@ -136,6 +133,9 @@ function MeetingDetail() {
       const result = await processingApi.processMeeting(id);
       setAiResult(result.aiResult);
       setActionItems(result.actionItems);
+      if (result.attendees.length > 0) {
+        setAttendees((prev) => [...prev, ...result.attendees]);
+    }
       setMeeting((prev) => (prev ? { ...prev, processingStatus: result.status } : prev));
     } catch (err) {
       setProcessingError(err instanceof Error ? err.message : "Processing failed.");
@@ -229,7 +229,6 @@ function MeetingDetail() {
                     <li key={a._id}>
                       <span className="attendee-name">{a.name}</span>
                       {a.role && <span className="attendee-role">{a.role}</span>}
-                      {a.email && <span className="attendee-email">{a.email}</span>}
                       <button onClick={() => handleRemoveAttendee(a._id, a.name)}>Remove</button>
                     </li>
                   ))}
@@ -241,11 +240,6 @@ function MeetingDetail() {
                   placeholder="Name"
                   value={attendeeName}
                   onChange={(e) => setAttendeeName(e.target.value)}
-                />
-                <input
-                  placeholder="Email (optional)"
-                  value={attendeeEmail}
-                  onChange={(e) => setAttendeeEmail(e.target.value)}
                 />
                 <input
                   placeholder="Role (optional)"
