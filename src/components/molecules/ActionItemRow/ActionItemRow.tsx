@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { FiTrash2 } from "react-icons/fi";
 import type { ActionItem, ActionItemStatus } from "@/lib/actionItems";
 import "./ActionItemRow.css";
+import { formatDate } from "@/lib/formatDate";
  
 type ActionItemRowProps = {
   item: ActionItem;
@@ -42,7 +43,7 @@ function ActionItemRow({
       <div className="cell cell-deadline">
         {item.deadline ? (
           <span className={isOverdue ? "deadline-overdue" : ""}>
-            {new Date(item.deadline).toLocaleDateString()}
+            {formatDate(item.deadline)}
             {isOverdue && <span className="overdue-badge">Overdue</span>}
           </span>
         ) : (

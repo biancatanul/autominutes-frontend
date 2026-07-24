@@ -13,6 +13,7 @@ import type { AiResult } from "@/lib/processing";
 import type { ActionItem, ActionItemStatus } from "@/lib/actionItems";
 import "./MeetingDetail.css";
 import ActionItemsList from "@organisms/ActionItemsList/ActionItemsList";
+import { formatDateTime } from "@/lib/formatDate";
 
 function MeetingDetail() {
   const { id } = useParams<{ id: string }>();
@@ -207,7 +208,7 @@ function MeetingDetail() {
             </div>
 
             <p className="meeting-detail-date">
-              {new Date(meeting.datetime).toLocaleString()}
+              {formatDateTime(meeting.datetime)}
             </p>
 
             {meeting.description && <p>{meeting.description}</p>}

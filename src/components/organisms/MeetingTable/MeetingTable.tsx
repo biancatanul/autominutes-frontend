@@ -2,10 +2,10 @@ import { useMeetings } from "@/context/MeetingsContext";
 import "./MeetingTable.css";
 import { FiFileText, FiTrash2 } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
-
+import { formatDateTime } from "@/lib/formatDate";
 
 function formatDate(iso: string){
-    return new Date(iso).toLocaleString();
+    return formatDateTime(iso);
 }
 
 function MeetingTable() {
