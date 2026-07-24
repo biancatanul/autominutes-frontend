@@ -1,8 +1,171 @@
+
+
+:root {
+    color-scheme: light;
+
+    --background: #f7f8fc;
+    --surface: #ffffff;
+    --surface-hover: #f2f0fb;
+
+    --sidebar-bg: #efe9fc;
+    --sidebar-border: #e2d8fa;
+
+    --primary: #8b5cf6;
+    --primary-light: #dcd0f3b4;
+    --primary-dark: #6d28d9;
+
+    --text: #1f1f2e;
+    --text-secondary: #6b7280;
+
+    --border: #e5e7eb;
+
+    --success: #22c55e;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+
+    --shadow: 0 8px 30px rgba(0,0,0,.06);
+
+    --transition: .2s ease;
+}
+
+
+body.dark {
+    color-scheme: dark;
+
+    --background: #13141b;
+    --surface: #1b1d26;
+    --surface-hover: #232634;
+
+    --sidebar-bg: #241b37;
+    --sidebar-border: #3c2d58;
+
+    --primary: #b48cff;
+    --primary-light: #34224f;
+    --primary-dark: #d8b4fe;
+
+    --text: #f4f4f7;
+    --text-secondary: #a5a7b3;
+
+    --border: #34374a;
+
+    --success: #4ade80;
+    --warning: #fbbf24;
+    --danger: #f87171;
+
+    --shadow: 0 10px 35px rgba(0,0,0,.45);
+
+    background: var(--background);
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 html,
 body,
 #root {
     width: 100%;
-    height: 100%;
-    margin: 0;
-    overflow: hidden;
+    min-height: 100%;
+}
+
+body {
+    font-family:
+        Tahoma,
+        Inter,
+        Segoe UI,
+        sans-serif;
+
+    background: var(--background);
+    color: var(--text);
+
+    transition:
+        background var(--transition),
+        color var(--transition);
+}
+
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+    color: var(--text);
+}
+
+p,
+span {
+    color: var(--text-secondary);
+}
+
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    outline: none;
+
+    transition: .2s;
+}
+
+button:hover {
+    transform: translateY(-1px);
+}
+
+
+input,
+textarea,
+select {
+    font-family: inherit;
+
+    background: var(--surface);
+    color: var(--text);
+
+    border: 1px solid var(--border);
+    border-radius: 10px;
+
+    transition: .2s;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-light);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary);
+}
+
+* {
+    scrollbar-color: var(--primary-light) transparent;
+}
+
+
+::selection {
+    background: var(--primary);
+    color: white;
 }

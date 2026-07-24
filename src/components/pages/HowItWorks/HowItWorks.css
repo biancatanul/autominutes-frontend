@@ -2,5 +2,6 @@
     font-family: 'Tahoma', sans-serif;
     display: flex;
     min-height: 100vh;
-    background: #ffffff;
+    background: var(--background);
+    color: var(--text-color);
 }

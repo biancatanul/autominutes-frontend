@@ -2,7 +2,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Home from "./components/pages/Home/Home";
 import Meetings from "./components/pages/Meetings/Meetings";
-import Settings from "./components/pages/Settings/Settings";
 import HowItWorks from "./components/pages/HowItWorks/HowItWorks";
 import Login from "./components/pages/Login/Login";
 import Signup from "./components/pages/Signup/Signup";
@@ -57,14 +56,6 @@ function App() {
           element={
             <ProtectedRoute>
               <HowItWorks />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/settings"
-          element={
-            <ProtectedRoute>
-              <Settings />
             </ProtectedRoute>
           }
         />

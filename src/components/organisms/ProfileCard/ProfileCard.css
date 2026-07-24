@@ -1,5 +1,7 @@
 .profile-card {
   position: relative;
+  background: var(--sidebar-bg);
+  border-radius: 10px;
 }
 
 .profile-card-trigger {
@@ -35,7 +37,7 @@
   position: absolute;
   top: calc(100% + 8px);
   right: 0;
-  background: white;
+  background: var(--sidebar-bg)
   border: 1px solid #e0e0e0;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);

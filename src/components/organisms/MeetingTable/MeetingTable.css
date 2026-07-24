@@ -1,5 +1,5 @@
 .meeting-table {
-    background: #f8f3fc;
+    background: var(--sidebar-bg);
     border-radius: 12px;
     overflow: hidden;
     display: flex;
@@ -13,7 +13,7 @@
 
     padding: 18px 24px;
 
-    background: #f0e9f7;
+    background: var(--sidebar-border);
     font-weight: 600;
 }
 

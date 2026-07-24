@@ -2,7 +2,6 @@ import {
   FiHome,
   FiVideo,
   FiHelpCircle,
-  FiSettings,
   FiCheckSquare,
 } from "react-icons/fi";
 import { NavLink } from "react-router-dom";
@@ -56,15 +55,6 @@ function Sidebar() {
           <span>How it works</span>
         </NavLink>
 
-        <NavLink
-          to="/settings"
-          className={({ isActive }) =>
-            isActive ? "nav-item active" : "nav-item"
-          }
-        >
-          <FiSettings size={22} />
-          <span>Settings</span>
-        </NavLink>
       </nav>
     </aside>
   );

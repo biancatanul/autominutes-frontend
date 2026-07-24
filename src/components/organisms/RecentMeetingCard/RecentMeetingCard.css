@@ -2,7 +2,7 @@
     width: 240px;
     min-height: 170px;
 
-    background: #F4EEF8;
+    background: var(--background);
 
     border-radius: 12px;
 

@@ -25,13 +25,9 @@ function Home() {
 
         <Header />
 
-        <h1>New Meeting</h1>
-
-        <MeetingOptions />
-
-        <MeetingForm />
-
         <h2>Recent meetings</h2>
+
+        <br />
 
         <RecentMeetings meetings = { meetings }/>
 

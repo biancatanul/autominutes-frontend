@@ -22,8 +22,8 @@
 .action-item-filters select,
 .action-item-filters input {
     padding: 8px 10px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+    border: 1px solid #dddddd27;
+    border-radius: 10px;
     font-family: inherit;
 }
 
@@ -32,7 +32,7 @@
 }
 
 .action-item-group {
-    background: #f8f3fc;
+    background: var(--sidebar-bg);
     border-radius: 12px;
     padding: 18px;
 }

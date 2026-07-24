@@ -5,7 +5,7 @@
     height: 40px;
     border-radius: 10px;
     border: 1px solid #6d5dd300;
-    background-color: #f5efff;
+    background-color: var(--sidebar-bg);
 }
 
 .dark-mode-toggle:hover {
