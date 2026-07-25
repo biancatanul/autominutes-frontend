@@ -5,14 +5,21 @@ import {
   FiCheckSquare,
 } from "react-icons/fi";
 import { NavLink } from "react-router-dom";
+import { useState } from "react";
+import Button from "@atoms/Button/Button";
+import NewMeetingModal from "@organisms/NewMeetingModal/NewMeetingModal";
 import "./Sidebar.css";
 
 function Sidebar() {
+  const [showModal, setShowModal] = useState(false);
+
   return (
     <aside className="sidebar">
       <div className="logo">
-        <span>Logo</span>
+        <span>AutoMinutes</span>
       </div>
+
+      <Button text="+ New Meeting" onClick={() => setShowModal(true)} />
 
       <nav className="sidebar-nav">
         <NavLink
@@ -56,6 +63,7 @@ function Sidebar() {
         </NavLink>
 
       </nav>
+      {showModal && <NewMeetingModal onClose={() => setShowModal(false)} />}
     </aside>
   );
 }

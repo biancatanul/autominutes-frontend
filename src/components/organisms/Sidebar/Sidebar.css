@@ -12,20 +12,25 @@
     transition: background 0.3s, color 0.3s, border-color 0.3s;
 }
 .logo {
-    width: 100px;
+    width: 140px;
     height: 42px;
 
-    background: #2d2d33;
-    color: white;
+    background: var(--primary);
+    color: #ffffff;
 
     display: flex;
     justify-content: center;
     align-items: center;
 
     border-radius: 4px;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 0.2px;
 }
-
+.logo span {
+    color: white;
+}
 .sidebar-nav {
     display: flex;
     flex-direction: column;
@@ -65,3 +70,7 @@
 .nav-item span {
     font-size: 12px;
 }   
+
+.sidebar > .button {
+    margin-bottom: 24px;
+}
