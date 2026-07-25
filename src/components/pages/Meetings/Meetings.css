@@ -12,12 +12,6 @@
     padding: 32px;
 }
 
-.meetings-title-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
 .searchbar {
     padding-bottom: 10px;
     display: flex;
@@ -25,8 +19,7 @@
 }
 .meetings-title-row {
     display: flex;
-    align-items: baseline;
-    gap: 12px;
+    justify-content: flex-end;
 }
 .meetings-count { color: #777; font-size: 14px; }
 

@@ -23,7 +23,7 @@ function Home() {
 
       <main className="home-content">
 
-        <Header />
+        <Header title="Home" />
 
         <h2>Recent meetings</h2>
 

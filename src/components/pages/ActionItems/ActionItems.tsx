@@ -80,8 +80,7 @@ function ActionItems() {
     <div className="action-items-page">
       <Sidebar />
       <main className="action-items-content">
-        <Header />
-        <h1>Action Items</h1>
+        <Header title="Action Items" />
 
         <ActionItemFilters
           status={statusFilter}

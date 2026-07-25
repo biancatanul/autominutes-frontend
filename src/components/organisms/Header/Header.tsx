@@ -1,9 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, ReactNode } from "react";
 import DarkModeToggle from "../../atoms/DarkModeToggle/DarkModeToggle";
 import ProfileCard from "../../organisms/ProfileCard/ProfileCard";
 import "./Header.css";
 
-function Header() {
+interface HeaderProps {
+  title: ReactNode;
+}
+
+function Header({ title }: HeaderProps) {
     const [isDark, setIsDark] = useState(() => {
         return localStorage.getItem("theme") === "dark";
     });
@@ -20,6 +24,9 @@ function Header() {
 
     return (
         <div className="header">
+            <div className="header-left">
+                <h1>{title}</h1>
+            </div>
             <div className="header-right">
                 <div className="header-actions">
                     <DarkModeToggle

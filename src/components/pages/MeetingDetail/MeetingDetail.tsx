@@ -1,5 +1,5 @@
 import { useEffect, useState, type FormEvent, type ChangeEvent } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import Sidebar from "@organisms/Sidebar/Sidebar";
 import Header from "@organisms/Header/Header";
 import * as meetingsApi from "@/lib/meetings";
@@ -14,6 +14,7 @@ import type { ActionItem, ActionItemStatus } from "@/lib/actionItems";
 import "./MeetingDetail.css";
 import ActionItemsList from "@organisms/ActionItemsList/ActionItemsList";
 import { formatDateTime } from "@/lib/formatDate";
+import { FiChevronRight } from "react-icons/fi";
 
 function MeetingDetail() {
   const { id } = useParams<{ id: string }>();
@@ -193,15 +194,20 @@ function MeetingDetail() {
     <div className="meeting-detail-page">
       <Sidebar />
       <main className="meeting-detail-content">
-        <Header />
-
+        <Header title={
+             <span className="header-breadcrumb">
+               <Link to="/meetings" className="breadcrumb-link">Meetings</Link>
+               <FiChevronRight size={18} className="breadcrumb-separator" />
+               <span>{meeting?.title ?? "Meeting"}</span>
+             </span>
+           }
+         />
         {loading && <p>Loading...</p>}
         {error && <p className="error">{error}</p>}
 
         {meeting && (
           <>
             <div className="meeting-detail-header">
-              <h1>{meeting.title}</h1>
               <span className={`status-badge status-${meeting.processingStatus}`}>
                 {meeting.processingStatus}
               </span>

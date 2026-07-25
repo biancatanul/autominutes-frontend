@@ -20,10 +20,8 @@ function Meetings() {
       <Sidebar />
 
       <main className="meetings-content">
-        <Header />
-
+        <Header title="Meeting archive" />
         <div className="meetings-title-row">
-          <h1>Meeting archive</h1>
           <span className="meetings-count">{filteredCount} result(s)</span>
         </div>
 
