@@ -1,5 +1,5 @@
 .button {
-    background: #9488cc;
+    background: var(--button-bg);
     color: #f5f5f5;
 
     border: none;
@@ -16,12 +16,12 @@
 }
 
 .button:hover {
-    background: #7e71c5;
+    background: var(--button-bg-hover);
     cursor: pointer;
 }
 
 .button:active {
-    background: #7e71c5;
+    background: var(--button-bg-hover);
     transform: scale(0.95);
     transition: transform 0.1s ease-in-out;
 }

@@ -12,3 +12,8 @@ export function formatDateTime(value: string | Date): string {
   const time = `${pad(date.getHours())}:${pad(date.getMinutes())}`;
   return `${formatDate(date)}, ${time}`;
 }
+
+export function formatTime(value: string | Date): string {
+  const date = new Date(value);
+  return `${pad(date.getHours())}:${pad(date.getMinutes())}`;
+}

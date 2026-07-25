@@ -11,44 +11,89 @@
     padding: 32px;
     gap: 12px;
     overflow-y: auto;
+    background: var(--background);
 }
 
-.meeting-detail-header {
+.meeting-detail-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 24px;
+}
+
+.meeting-detail-top-left {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.meeting-detail-meta {
     display: flex;
     align-items: center;
+    gap: 20px;
+}
+
+.meta-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text);
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.meta-item svg {
+    color: var(--primary);
+}
+
+.meeting-detail-layout {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+}
+
+.meeting-detail-main {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
     gap: 12px;
 }
 
-.meeting-detail-date {
-    color: #666;
-}
-
-.delete-btn {
-    align-self: flex-start;
-    background: #fbeaea;
-    color: #c0392b;
-    border: none;
-    border-radius: 8px;
-    padding: 8px 14px;
-    cursor: pointer;
+.meeting-detail-sidebar {
+    width: 320px;
+    flex-shrink: 0;
 }
 
 .error {
-    color: #c0392b;
+    color: var(--danger);
 }
 
 .success {
-    color: #1e7a34;
+    color: var(--success);
 }
 
 .muted {
-    color: #888;
+    color: var(--text-secondary);
 }
 
 .detail-section {
-    background: #f8f3fc;
+    background: var(--surface);
+    border: 1px solid var(--border);
     border-radius: 12px;
-    padding: 18px;
+    padding: 20px;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    align-items: flex-start;
+}
+.transcript-input,
+.detail-section input[type="file"],
+.attendee-form,
+.ai-results,
+.attendee-list {
+   width: 100%;
 }
 
 .attendee-list {
@@ -63,17 +108,24 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    background: white;
+    background: var(--background);
+    border: 1px solid var(--border);
     border-radius: 8px;
     padding: 8px 12px;
 }
 
+.attendee-name {
+    color: var(--text);
+}
+
 .attendee-role {
     font-size: 12px;
-    background: #ece5f5;
+    background: var(--primary-light);
+    color: var(--text);
     padding: 2px 8px;
     border-radius: 999px;
 }
+
 .attendee-form {
     display: flex;
     gap: 8px;
@@ -84,33 +136,118 @@
 .attendee-form input {
     flex: 1;
     padding: 8px 10px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--border);
     border-radius: 8px;
+}
+
+.attendee-form button {
+    flex: 0 0 auto;
 }
 
 .transcript-input {
     width: 100%;
-    margin-top: 10px;
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--border);
     border-radius: 8px;
     font-family: inherit;
     resize: vertical;
 }
 
 .ai-results {
-    margin-top: 14px;
-    background: white;
+    background: var(--background);
     border-radius: 8px;
-    padding: 14px;
+    padding: 16px 20px;
+    border: 1px solid var(--border);
+    font-size: 16px;
 }
 
 .ai-results h3 {
     margin-top: 0;
     margin-bottom: 6px;
-    font-size: 15px;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
 }
 
 .ai-results h3:not(:first-child) {
     margin-top: 16px;
+}
+
+.ai-results ul {
+   list-style-position: inside;
+   margin: 0;
+   padding: 0;
+}
+
+.ai-results p {
+    text-align: left;
+}
+.ai-results p, .ai-results li {
+   font-size: 14px;
+   line-height: 1.5;
+}
+
+.meeting-detail-layout .action-items-table-header,
+.meeting-detail-layout .action-item-row {
+   padding-left: 20px;
+}
+
+.meeting-detail-layout button {
+    background: var(--button-bg);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.meeting-detail-layout button:hover:not(:disabled) {
+    background: var(--button-bg-hover);
+}
+
+.meeting-detail-layout button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.delete-btn {
+    background: rgba(239, 68, 68, 0.15);
+    color: var(--danger);
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.delete-btn:hover {
+    background: rgba(239, 68, 68, 0.25);
+}
+
+.meeting-detail-layout .attendee-list button {
+    background: transparent;
+    color: var(--danger);
+    padding: 4px 10px;
+    font-size: 13px;
+}
+
+.meeting-detail-layout .attendee-list button:hover {
+    background: rgba(239, 68, 68, 0.1);
+}
+
+.meeting-detail-layout .error button {
+    background: transparent;
+    color: var(--danger);
+    text-decoration: underline;
+    padding: 0;
+    font-weight: 600;
+}
+
+.meeting-detail-layout .error button:hover {
+    background: none;
 }
