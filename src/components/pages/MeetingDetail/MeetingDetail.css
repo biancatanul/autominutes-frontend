@@ -223,8 +223,9 @@
 }
 
 .meeting-detail-layout button:disabled {
-    opacity: 0.6;
     cursor: not-allowed;
+    background: var(--surface-hover);
+    color: var(--text-secondary);
 }
 
 .delete-btn {
@@ -264,4 +265,10 @@
 
 .meeting-detail-layout .error button:hover {
     background: none;
+}
+
+.btn-loading {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
 }

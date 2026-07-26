@@ -3,6 +3,7 @@ import "./MeetingTable.css";
 import { FiFileText, FiTrash2 } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import { formatDateTime } from "@/lib/formatDate";
+import Spinner from "@atoms/Spinner/Spinner";
 
 function formatDate(iso: string){
     return formatDateTime(iso);
@@ -31,7 +32,12 @@ function MeetingTable() {
             <div className="table-body">
 
                 {loading ? (
-                    <div className="empty-table">Loading meetings...</div>
+                    <div className="empty-table">
+                        <span className="loading-row">
+                            <Spinner size={18} />
+                            Loading meetings...
+                        </span>
+                    </div>
                 ) : error ? (
                     <div className="empty-table">{error}</div>
                 ) : meetings.length === 0 ? (

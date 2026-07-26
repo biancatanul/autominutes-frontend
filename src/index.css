@@ -189,3 +189,10 @@ select:focus {
     background: var(--primary);
     color: white;
 }
+
+.loading-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-secondary);
+}

@@ -7,6 +7,7 @@ import * as actionItemsApi from "@/lib/actionItems";
 import * as meetingsApi from "@/lib/meetings";
 import type { ActionItem, ActionItemStatus } from "@/lib/actionItems";
 import "./ActionItems.css";
+import Spinner from "@atoms/Spinner/Spinner";
 
 function ActionItems() {
   const [items, setItems] = useState<ActionItem[]>([]);
@@ -93,7 +94,12 @@ function ActionItems() {
           meetingOptions={meetingOptions}
         />
 
-        {loading && <p>Loading...</p>}
+        {loading && (
+          <div className="loading-row">
+            <Spinner size={18} />
+            <span>Loading...</span>
+          </div>
+        )}
         {error && <p className="error">{error}</p>}
 
         {!loading && !error && (

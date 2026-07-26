@@ -16,6 +16,7 @@ import ActionItemsList from "@organisms/ActionItemsList/ActionItemsList";
 import { formatDateTime, formatDate, formatTime } from "@/lib/formatDate";
 import { FiCalendar, FiClock } from "react-icons/fi";
 import { FiChevronRight } from "react-icons/fi";
+import Spinner from "@atoms/Spinner/Spinner";
 
 function MeetingDetail() {
   const { id } = useParams<{ id: string }>();
@@ -205,7 +206,12 @@ function MeetingDetail() {
           }
         />
 
-        {loading && <p>Loading...</p>}
+        {loading && (
+          <div className="loading-row">
+            <Spinner size={18} />
+            <span>Loading...</span>
+          </div>
+        )}
         {error && <p className="error">{error}</p>}
 
         {meeting && (
@@ -264,9 +270,18 @@ function MeetingDetail() {
                 <section className="detail-section">
                   <h2>AI Processing</h2>
 
-                  <button onClick={handleProcess} disabled={processing || !transcript.trim()}>
-                    {processing ? "Processing..." : aiResult ? "Reprocess transcript" : "Process transcript"}
-                  </button>
+                 <button onClick={handleProcess} disabled={processing || !transcript.trim()}>
+                  {processing ? (
+                    <span className="btn-loading">
+                      <Spinner size={14} color="currentColor" />
+                      Processing...
+                    </span>
+                  ) : aiResult ? (
+                    "Reprocess transcript"
+                  ) : (
+                    "Process transcript"
+                  )}
+                </button>
 
                   {processingError && (
                     <p className="error">
