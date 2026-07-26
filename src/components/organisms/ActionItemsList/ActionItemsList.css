@@ -52,6 +52,6 @@
 }
 
 .pagination button.active {
-    background: #2d2d2d;
+    background: var(--primary);
     color: white;
 }

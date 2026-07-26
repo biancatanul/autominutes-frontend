@@ -9,7 +9,7 @@
 }
 
 .modal {
-    background: white;
+    background: var(--surface);
     border-radius: 12px;
     padding: 24px;
     width: 420px;
@@ -33,13 +33,13 @@
 .modal input,
 .modal textarea {
     padding: 8px 10px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--border);
     border-radius: 8px;
     font-family: inherit;
 }
 
 .modal-error {
-    color: #c0392b;
+    color: var(--danger);
     font-size: 14px;
 }
 

@@ -4,7 +4,7 @@
     align-items: center;
 
     padding: 14px 24px;
-    border-bottom: 1px solid #ece5f5;
+    border-bottom: 1px solid var(--border);
 }
 
 .action-item-row.with-meeting {
@@ -17,7 +17,7 @@
 }
 
 .cell-meeting a {
-    color: #6a3fae;
+    color: var(--primary);
     text-decoration: none;
 }
 
@@ -28,11 +28,11 @@
 .cell-assignee .muted,
 .cell-deadline .muted,
 .cell-meeting .muted {
-    color: #999;
+    color: var(--text-secondary);
 }
 
 .deadline-overdue {
-    color: #c0392b;
+    color: var(--danger);
     font-weight: 600;
     display: inline-flex;
     align-items: center;
@@ -40,8 +40,8 @@
 }
 
 .overdue-badge {
-    background: #fbe3e3;
-    color: #c0392b;
+    background: var(--status-failed-bg);
+    color: var(--status-failed-text);
     font-size: 11px;
     font-weight: 700;
     text-transform: uppercase;
@@ -60,23 +60,23 @@
 }
 
 .status-select.status-OPEN {
-    background: #e0e0e0;
-    color: #555;
+    background: var(--status-idle-bg);
+    color: var(--status-idle-text);
 }
 
 .status-select.status-IN_PROGRESS {
-    background: #fdf0d5;
-    color: #a06b00;
+    background: var(--status-processing-bg);
+    color: var(--status-processing-text);
 }
 
 .status-select.status-DONE {
-    background: #dff5e1;
-    color: #1e7a34;
+    background: var(--status-completed-bg);
+    color: var(--status-completed-text);
 }
 
 .status-select.status-UNKNOWN {
-    background: #eee;
-    color: #777;
+    background: var(--status-failed-bg);
+    color: var(--status-failed-text);
     border: 1px dashed #bbb;
 }
 
@@ -89,10 +89,10 @@
     background: none;
     border: none;
     cursor: pointer;
-    color: #888;
+    color: var(--text-secondary);
     padding: 4px;
 }
 
 .action-item-row .action-btn:hover {
-    color: #c0392b;
+    color: var(--danger);
 }

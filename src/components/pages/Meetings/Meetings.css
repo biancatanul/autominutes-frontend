@@ -21,7 +21,7 @@
     display: flex;
     justify-content: flex-end;
 }
-.meetings-count { color: #777; font-size: 14px; }
+.meetings-count { color: var(--text-secondary); font-size: 14px; }
 
 .meetings-toolbar {
     display: flex;
