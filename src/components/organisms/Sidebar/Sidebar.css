@@ -12,24 +12,17 @@
     transition: background 0.3s, color 0.3s, border-color 0.3s;
 }
 .logo {
-    width: 140px;
-    height: 42px;
-
-    background: var(--primary);
-    color: #ffffff;
-
     display: flex;
     justify-content: center;
     align-items: center;
-
-    border-radius: 4px;
     margin-bottom: 20px;
-    font-weight: 700;
-    font-size: 15px;
-    letter-spacing: 0.2px;
 }
+
 .logo span {
-    color: white;
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 20px;
+    letter-spacing: 0.2px;
 }
 .sidebar-nav {
     display: flex;

@@ -26,6 +26,10 @@
     flex-direction: column;
     gap: 10px;
 }
+.meeting-detail-top-left p {
+    color: var(--text);
+    font-size:16px;
+}
 
 .meeting-detail-top-left .status-badge {
     align-self: flex-start;

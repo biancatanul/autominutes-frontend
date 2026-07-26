@@ -1,5 +1,5 @@
 .button {
-    background: var(--button-bg);
+    background: var(--primary);
     color: #f5f5f5;
 
     border: none;
@@ -16,12 +16,12 @@
 }
 
 .button:hover {
-    background: var(--button-bg-hover);
+    background: var(--primary-dark);
     cursor: pointer;
 }
 
 .button:active {
-    background: var(--button-bg-hover);
+    background: var(--primary-dark);
     transform: scale(0.95);
     transition: transform 0.1s ease-in-out;
 }

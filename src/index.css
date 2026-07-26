@@ -10,9 +10,9 @@
     --sidebar-bg: #efe9fc;
     --sidebar-border: #e2d8fa;
 
-    --primary: #8b5cf6;
-    --primary-light: #dcd0f3b4;
-    --primary-dark: #6d28d9;
+    --primary: #7e71c5;
+    --primary-light: rgba(148, 136, 204, 0.3);
+    --primary-dark: #5f5594;
 
     --button-bg: #9488cc;
     --button-bg-hover: #7e71c5;
@@ -51,9 +51,9 @@ body.dark {
     --sidebar-bg: #241b37;
     --sidebar-border: #3c2d58;
 
-    --primary: #b48cff;
-    --primary-light: #34224f;
-    --primary-dark: #d8b4fe;
+    --primary: #a99fd6;
+    --primary-light: #1e1b29;
+    --primary-dark: #bfb8e0;
 
     --text: #f4f4f7;
     --text-secondary: #a5a7b3;
