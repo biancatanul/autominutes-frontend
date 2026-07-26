@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
-import { FiTrash2 } from "react-icons/fi";
+import { FiTrash2, FiChevronDown } from "react-icons/fi";
 import type { ActionItem, ActionItemStatus } from "@/lib/actionItems";
 import "./ActionItemRow.css";
 import { formatDate } from "@/lib/formatDate";
+import { useState } from "react";
  
 type ActionItemRowProps = {
   item: ActionItem;
@@ -19,22 +20,38 @@ function ActionItemRow({
   meetingTitle,
   showMeetingColumn,
 }: ActionItemRowProps) {
+  const [expanded, setExpanded] = useState(false);
+
   const isOverdue =
     Boolean(item.deadline) && item.status !== "DONE" && new Date(item.deadline!) < new Date();
- 
+ const hasDetails = Boolean(item.details?.trim());
+
   return (
-    <div className={`action-item-row ${showMeetingColumn ? "with-meeting" : ""}`}>
-      <div className="cell cell-description">{item.description}</div>
- 
-      {showMeetingColumn && (
-        <div className="cell cell-meeting">
-          {meetingTitle ? (
-            <Link to={`/meetings/${item.meetingId}`}>{meetingTitle}</Link>
-          ) : (
-            <span className="muted">—</span>
+    <div className="action-item-row-wrapper">
+      <div className={`action-item-row ${showMeetingColumn ? "with-meeting" : ""}`}>
+        <div className="cell cell-description">
+          {hasDetails && (
+            <button
+              className={`expand-btn ${expanded ? "expanded" : ""}`}
+              onClick={() => setExpanded((prev) => !prev)}
+              aria-expanded={expanded}
+              aria-label={expanded ? "Hide details" : "Show details"}
+            >
+              <FiChevronDown />
+            </button>
           )}
+          {item.description}
         </div>
-      )}
+
+        {showMeetingColumn && (
+          <div className="cell cell-meeting">
+            {meetingTitle ? (
+              <Link to={`/meetings/${item.meetingId}`}>{meetingTitle}</Link>
+            ) : (
+              <span className="muted">—</span>
+            )}
+          </div>
+        )}
  
       <div className="cell cell-assignee">
         {item.assignee ? item.assignee : <span className="muted">Unassigned</span>}
@@ -73,6 +90,11 @@ function ActionItemRow({
           <FiTrash2 />
         </button>
       </div>
+    </div>
+
+    {expanded && hasDetails && (
+        <div className="action-item-details">{item.details}</div>
+      )}
     </div>
   );
 }

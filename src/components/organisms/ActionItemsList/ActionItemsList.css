@@ -23,7 +23,7 @@
     flex-direction: column;
 }
 
-.action-items-table-body .action-item-row:last-child {
+.action-items-table-body .action-item-row-wrapper:last-child {
     border-bottom: none;
 }
 

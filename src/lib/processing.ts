@@ -19,6 +19,7 @@ export type ActionItem = {
   description: string;
   assignee?: string;
   deadline?: string;
+  details?: string;
   status: ActionItemStatus;
   meetingId: string;
   createdAt: string;
