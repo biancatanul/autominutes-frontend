@@ -160,17 +160,49 @@ function MeetingDetail() {
     setActionItems((prev) => prev.filter((item) => item._id !== itemId));
   };
 
-  const handleFileUpload = (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
+  const SUPPORTED_TEXT = /\.(txt|md|csv|vtt|srt)$/i;
 
-    const reader = new FileReader();
-    reader.onload = () => {
-      setTranscriptText(typeof reader.result === "string" ? reader.result : "");
-      setTranscriptSaved(false);
-    };
-    reader.readAsText(file);
-  };
+  const handleFileUpload = async (e: ChangeEvent<HTMLInputElement>) => {
+  const file = e.target.files?.[0];
+  if (!file) return;
+
+  setTranscriptError(null);
+
+  try {
+    let text: string;
+
+    if (file.name.toLowerCase().endsWith(".docx")) {
+      //mammoth to parse .docx
+      const mammoth = (await import("mammoth")).default ?? (await import("mammoth"));
+      const { value } = await mammoth.extractRawText({
+        arrayBuffer: await file.arrayBuffer(),
+      });
+      text = value;
+    } else if (SUPPORTED_TEXT.test(file.name)) {
+      text = await file.text();
+    } else {
+      setTranscriptError(
+        `"${file.name}" is unsupported. Please upload a .txt, .md, or .docx file.`,
+      );
+      e.target.value = "";
+      return;
+    }
+
+    if (!text.trim()) {
+      setTranscriptError(`"${file.name}" appears to be empty.`);
+      e.target.value = "";
+      return;
+    }
+
+    setTranscriptText(text);
+    setTranscriptSaved(false);
+  } catch (err) {
+    console.error(err);
+    setTranscriptError(`Couldn't read "${file.name}". Try a different file.`);
+  } finally {
+    e.target.value = "";
+  }
+};
 
   const handleSaveTranscript = async () => {
     if (!id) return;
@@ -246,11 +278,11 @@ function MeetingDetail() {
                 <section className="detail-section">
                   <h2>Transcript</h2>
 
-                  <input type="file" accept=".txt" onChange={handleFileUpload} />
+                  <input type="file" accept=".txt, .md, .csv, .vtt, .srt, .docx" onChange={handleFileUpload} />
 
                   <textarea
                     className="transcript-input"
-                    placeholder="Paste the meeting transcript here, or upload a .txt file above"
+                    placeholder="Paste the meeting transcript here, or upload a .txt / .docx file above"
                     value={transcript}
                     onChange={(e) => {
                       setTranscriptText(e.target.value);
