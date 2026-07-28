@@ -6,7 +6,7 @@ const PAGE_SIZE = 10;
 const FETCH_LIMIT = 1000; // pull all meetings so filtering can see the whole set
 
 export type StatusFilter = ProcessingStatus | "all";
-export type SortOption = "date-desc" | "date-asc";
+export type SortOption = "date-desc" | "date-asc" | "title-asc" | "title-desc";
 
 type MeetingsContextType = {
   meetings: Meeting[];
@@ -72,9 +72,18 @@ export const MeetingsProvider = ({ children }: { children: ReactNode }) => {
     });
 
     return [...matched].sort((a, b) => {
-      const diff = new Date(a.datetime).getTime() - new Date(b.datetime).getTime();
-      return sort === "date-asc" ? diff : -diff;
-    });
+      switch (sort) {
+        case "title-asc":
+          return a.title.localeCompare(b.title);
+        case "title-desc":
+          return b.title.localeCompare(a.title);
+        case "date-asc":
+         return new Date(a.datetime).getTime() - new Date(b.datetime).getTime();
+        case "date-desc":
+        default:
+          return new Date(b.datetime).getTime() - new Date(a.datetime).getTime();
+  }
+});
   }, [allMeetings, search, statusFilter, sort]);
 
   // client-side pagination over the filtered list

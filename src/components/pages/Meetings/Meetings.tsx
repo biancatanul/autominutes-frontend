@@ -9,6 +9,7 @@ import FilterDropdown from "@molecules/FilterDropdown/FilterDropdown";
 import { useMeetings, type StatusFilter, type SortOption } from "@/context/MeetingsContext";
 import "./Meetings.css";
 import { useState } from "react";
+import { LuArrowUpDown } from "react-icons/lu";
 
 function Meetings() {
   const [showModal, setShowModal] = useState(false);
@@ -48,13 +49,15 @@ function Meetings() {
     />
 
     <FilterDropdown<SortOption>
-      icon={<FiCalendar size={16} />}
-      label="Date"
+      icon={<LuArrowUpDown size={16} />}
+      label="Sort"
       value={sort}
       onChange={setSort}
       options={[
         { value: "date-desc", label: "Newest first" },
         { value: "date-asc",  label: "Oldest first" },
+        { value: "title-asc",  label: "Title (A–Z)" },
+        { value: "title-desc", label: "Title (Z–A)" },
       ]}
     />
 
