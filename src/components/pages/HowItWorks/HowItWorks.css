@@ -1,7 +1,62 @@
-.how-it-works {
-    font-family: 'Tahoma', sans-serif;
-    display: flex;
-    min-height: 100vh;
-    background: var(--background);
-    color: var(--text-color);
+.how-page{
+    display:flex;
+    min-height:100vh;
+    background:var(--background);
+}
+
+.how-content{
+    flex:1;
+    padding:40px 60px;
+}
+
+
+.how-content h1{
+    font-size:24px;
+    color:var(--text);
+}
+
+.subtitle{
+    margin-top:12px;
+    color:var(--text-secondary);
+    max-width:700px;
+    line-height:1.6;
+}
+
+.steps{
+    margin-top:40px;
+
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:24px;
+}
+
+.step-card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:28px;
+
+    transition:.25s;
+}
+
+.step-card:hover{
+    transform:translateY(-6px);
+    border-color:var(--primary);
+    box-shadow:var(--shadow);
+}
+
+.step-icon{
+    font-size:40px;
+    color:var(--primary);
+    margin-bottom:18px;
+}
+
+.step-card h2{
+    margin-bottom:12px;
+    color:var(--text);
+}
+
+.step-card p{
+    color:var(--text-secondary);
+    line-height:1.6;
 }

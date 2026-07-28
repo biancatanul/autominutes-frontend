@@ -47,6 +47,7 @@
 .remember-me { 
     display: flex;
     justify-content: flex-end;
+    gap: 5px;
 }
 
 .remember-me label {
@@ -63,7 +64,6 @@
     text-decoration: none;
     color: #6c4de6a8;
     font-size: 14px;
-    margin-top: 10px;
 }
 
 .signup-link {
