@@ -136,7 +136,13 @@ function MeetingDetail() {
     try {
       const result = await processingApi.processMeeting(id);
       setAiResult(result.aiResult);
-      setActionItems(result.actionItems);
+      setActionItems((prev) => {
+        const merged = new Map(prev.map((item) => [item._id, item]));
+        for (const item of result.actionItems) {
+          merged.set(item._id, item);
+        }
+        return Array.from(merged.values());
+      });
       if (result.attendees.length > 0) {
         setAttendees((prev) => [...prev, ...result.attendees]);
     }
@@ -332,7 +338,7 @@ function MeetingDetail() {
                       <h3>Summary</h3>
                       <p>{aiResult.summary}</p>
 
-                      {aiResult.discussionPoints.length > 0 && (
+                      {aiResult.discussionPoints.length > 0 ? (
                         <>
                           <h3>Discussion Points</h3>
                           <ul>
@@ -340,6 +346,11 @@ function MeetingDetail() {
                               <li key={i}>{point}</li>
                             ))}
                           </ul>
+                        </>
+                      ) : (
+                        <>
+                          <h3>Discussion Points</h3>
+                          <p className="muted">No discussion points were extracted for this run.</p>
                         </>
                       )}
                     </div>
