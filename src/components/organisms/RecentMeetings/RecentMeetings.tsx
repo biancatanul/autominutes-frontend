@@ -1,19 +1,15 @@
 import RecentMeetingCard from "../RecentMeetingCard/RecentMeetingCard";
 import "./RecentMeetings.css";
 import { FiClock } from "react-icons/fi";
-
-type Meeting = {
-    id: number;
-    title: string;
-    description: string;
-    date: string;
-};
+import type { Meeting } from "@/lib/meetings";
 
 type RecentMeetingsProps = {
     meetings: Meeting[];
+    onOpen: (id: string) => void;
+    onDelete: (id: string, title: string) => void;
 };
 
-function RecentMeetings({ meetings }: RecentMeetingsProps) {
+function RecentMeetings({ meetings, onOpen, onDelete }: RecentMeetingsProps) {
     return (
         <div className="recent-meetings">
             {meetings.length === 0 ? (
@@ -25,10 +21,12 @@ function RecentMeetings({ meetings }: RecentMeetingsProps) {
             ) : (
                 meetings.map((meeting) => (
                     <RecentMeetingCard
-                        key={meeting.id}
+                        key={meeting._id}
                         title={meeting.title}
-                        description={meeting.description}
-                        date={meeting.date}
+                        description={meeting.description ?? "No description provided."}
+                        date={meeting.datetime}
+                        onOpen={() => onOpen(meeting._id)}
+                        onDelete={() => onDelete(meeting._id, meeting.title)}
                     />
                 ))
             )}

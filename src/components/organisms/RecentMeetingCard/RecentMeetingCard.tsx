@@ -1,15 +1,20 @@
 import "./RecentMeetingCard.css";
+import { formatDate } from "@/lib/formatDate";
 
 type RecentMeetingCardProps = {
   title: string;
   description: string;
   date: string;
+  onOpen: () => void;
+  onDelete: () => void;
 };
 
 function RecentMeetingCard({
   title,
   description,
   date,
+  onOpen,
+  onDelete,
 }: RecentMeetingCardProps) {
   return (
     <div className="recent-card">
@@ -17,11 +22,11 @@ function RecentMeetingCard({
 
       <p>{description}</p>
 
-      <span>{date}</span>
+      <span>{formatDate(date)}</span>
 
       <div className="recent-card-buttons">
-        <button>Open</button>
-        <button>Delete</button>
+        <button onClick={onOpen}>Open</button>
+        <button onClick={onDelete}>Delete</button>
       </div>
     </div>
   );

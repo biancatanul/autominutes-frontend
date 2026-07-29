@@ -2,7 +2,8 @@
     width: 240px;
     min-height: 170px;
 
-    background: var(--background);
+    background: var(--sidebar-bg);
+    border: 1px solid var(--sidebar-border);
 
     border-radius: 12px;
 
@@ -11,7 +12,7 @@
     display: flex;
     flex-direction: column;
 
-    box-shadow: 0 2px 6px rgba(0,0,0,.08);
+    box-shadow: var(--shadow);
 }
 
 .recent-card h3{
