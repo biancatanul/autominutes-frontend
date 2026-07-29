@@ -17,6 +17,7 @@
 
 .subtitle{
     margin-top:12px;
+    text-align: left;
     color:var(--text-secondary);
     max-width:700px;
     line-height:1.6;

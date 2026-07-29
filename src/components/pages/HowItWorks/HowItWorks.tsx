@@ -15,9 +15,8 @@ function HowItWorks() {
             <Sidebar />
 
             <main className="how-content">
-                <Header title="How It Works" />
+                <Header title="How AutoMinutes Works" />
 
-                <h1>How AutoMinutes Works</h1>
 
                 <p className="subtitle">
                     Turn your meetings into organized notes, summaries and action
@@ -39,7 +38,7 @@ function HowItWorks() {
                         <FiMic className="step-icon" />
                         <h2>2. Upload Transcript</h2>
                         <p>
-                            Import a transcript or recording after your meeting.
+                            Import a transcript after your meeting.
                             AutoMinutes accepts meeting transcripts for AI
                             processing.
                         </p>
