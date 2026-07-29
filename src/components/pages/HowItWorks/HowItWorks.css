@@ -61,3 +61,13 @@
     color:var(--text-secondary);
     line-height:1.6;
 }
+
+@media (max-width: 768px) {
+    .how-page {
+        flex-direction: column;
+    }
+
+    .how-content {
+        padding: 76px 16px 32px;
+    }
+}

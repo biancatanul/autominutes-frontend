@@ -99,3 +99,55 @@
 .clear-filters-btn:disabled:hover {
     background: none;
 }
+
+@media (max-width: 768px) {
+    .meetings-page {
+        flex-direction: column;
+    }
+
+    .meetings-content {
+        padding: 76px 16px 24px;
+    }
+
+    .toolbar-actions {
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 640px) {
+    .meetings-toolbar {
+        flex-wrap: wrap;
+    }
+
+    .toolbar-actions {
+        flex-wrap: wrap;
+        width: 100%;
+    }
+
+    .searchbar input {
+        flex: 1;
+        min-width: 0;
+        width: auto;
+    }
+
+    .toolbar-actions .filter-trigger {
+        padding: 7px 10px;
+        font-size: 12px;
+        gap: 5px;
+    }
+
+    .date-range-filter {
+        padding: 7px 10px;
+        gap: 6px;
+    }
+
+    .date-range-filter input[type="date"] {
+        width: 92px;
+        font-size: 12px;
+    }
+
+    .clear-filters-btn {
+        padding: 7px 10px;
+        font-size: 12px;
+    }
+}

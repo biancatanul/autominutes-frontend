@@ -20,3 +20,13 @@ h1 {
 .error {
     color: var(--danger);
 }
+
+@media (max-width: 768px) {
+    .home {
+        flex-direction: column;
+    }
+
+    .home-content {
+        padding: 76px 16px 24px;
+    }
+}

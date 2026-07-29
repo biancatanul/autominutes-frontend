@@ -68,3 +68,47 @@
     flex-wrap: wrap;
     margin-bottom: 8px;
 }
+
+@media (max-width: 768px) {
+    .action-items-page {
+        flex-direction: column;
+        height: auto;
+        min-height: 100vh;
+    }
+
+    .action-items-content {
+        padding: 76px 16px 24px;
+    }
+
+    .action-item-filters {
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 640px) {
+    .action-items-toolbar {
+        flex-wrap: wrap;
+    }
+
+    .action-item-filters {
+        flex-wrap: wrap;
+        width: 100%;
+    }
+
+    .searchbar input {
+        flex: 1;
+        min-width: 0;
+        width: auto;
+    }
+
+    .action-item-filters .filter-trigger {
+        padding: 7px 10px;
+        font-size: 12px;
+        gap: 5px;
+    }
+
+    .action-item-filters .clear-filters-btn {
+        padding: 7px 10px;
+        font-size: 12px;
+    }
+}
