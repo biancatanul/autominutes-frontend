@@ -1,3 +1,6 @@
+import { FiFilter, FiX } from "react-icons/fi";
+import FilterDropdown from "@molecules/FilterDropdown/FilterDropdown";
+
 type MeetingOption = {
   id: string;
   title: string;
@@ -12,6 +15,8 @@ type ActionItemFiltersProps = {
   onMeetingChange: (meetingId: string) => void;
   assigneeOptions: string[];
   meetingOptions: MeetingOption[];
+  hasActiveFilters: boolean;
+  onClearFilters: () => void;
 };
 
 function ActionItemFilters({
@@ -23,34 +28,56 @@ function ActionItemFilters({
   onMeetingChange,
   assigneeOptions,
   meetingOptions,
+  hasActiveFilters,
+  onClearFilters,
 }: ActionItemFiltersProps) {
   return (
     <div className="action-item-filters">
-      <select value={status} onChange={(e) => onStatusChange(e.target.value)}>
-        <option value="">All statuses</option>
-        <option value="OPEN">Open</option>
-        <option value="IN_PROGRESS">In progress</option>
-        <option value="DONE">Done</option>
-        <option value="UNKNOWN">Unknown</option>
-      </select>
+      <FilterDropdown<string>
+        icon={<FiFilter size={16} />}
+        label="Status"
+        value={status}
+        onChange={onStatusChange}
+        options={[
+          { value: "", label: "All statuses" },
+          { value: "OPEN", label: "Open" },
+          { value: "IN_PROGRESS", label: "In progress" },
+          { value: "DONE", label: "Done" },
+          { value: "UNKNOWN", label: "Unknown" },
+        ]}
+      />
 
-      <select value={meetingId} onChange={(e) => onMeetingChange(e.target.value)}>
-        <option value="">All meetings</option>
-        {meetingOptions.map((m) => (
-          <option key={m.id} value={m.id}>
-            {m.title}
-          </option>
-        ))}
-      </select>
+      <FilterDropdown<string>
+        icon={<FiFilter size={16} />}
+        label="Meeting"
+        value={meetingId}
+        onChange={onMeetingChange}
+        options={[
+          { value: "", label: "All meetings" },
+          ...meetingOptions.map((m) => ({ value: m.id, label: m.title })),
+        ]}
+      />
 
-      <select value={assignee} onChange={(e) => onAssigneeChange(e.target.value)}>
-        <option value="">All assignees</option>
-        {assigneeOptions.map((a) => (
-          <option key={a} value={a}>
-            {a}
-          </option>
-        ))}
-      </select>
+      <FilterDropdown<string>
+        icon={<FiFilter size={16} />}
+        label="Assignee"
+        value={assignee}
+        onChange={onAssigneeChange}
+        options={[
+          { value: "", label: "All assignees" },
+          ...assigneeOptions.map((a) => ({ value: a, label: a })),
+        ]}
+      />
+
+      <button
+        type="button"
+        className="clear-filters-btn"
+        onClick={onClearFilters}
+        disabled={!hasActiveFilters}
+      >
+        <FiX size={14} />
+        Clear filters
+      </button>
     </div>
   );
 }

@@ -15,20 +15,38 @@
 
 .action-item-filters {
     display: flex;
-    gap: 8px;
-    margin-bottom: 8px;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-left: auto;
 }
 
-.action-item-filters select,
-.action-item-filters input {
-    padding: 8px 10px;
-    border: 1px solid #dddddd27;
-    border-radius: 10px;
-    font-family: inherit;
+.clear-filters-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 12px;
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font: inherit;
+    font-size: 13px;
+    cursor: pointer;
+    border-radius: 8px;
 }
 
-.action-item-filters input {
-    flex: 1;
+.clear-filters-btn:hover {
+    color: var(--text);
+    background: var(--surface-hover);
+}
+
+.clear-filters-btn:disabled {
+    color: var(--border);
+    cursor: not-allowed;
+}
+
+.clear-filters-btn:disabled:hover {
+    background: none;
 }
 
 .action-item-group {
@@ -41,4 +59,12 @@
     margin-top: 0;
     margin-bottom: 10px;
     font-size: 15px;
+}
+
+.action-items-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
 }

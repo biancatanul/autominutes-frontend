@@ -9,6 +9,7 @@ import * as meetingsApi from "@/lib/meetings";
 import type { ActionItem, ActionItemStatus } from "@/lib/actionItems";
 import "./ActionItems.css";
 import Spinner from "@atoms/Spinner/Spinner";
+import Searchbar from "@organisms/Searchbar/Searchbar";
 
 function ActionItems() {
   const [items, setItems] = useState<ActionItem[]>([]);
@@ -21,6 +22,9 @@ function ActionItems() {
   const statusFilter = searchParams.get("status") ?? "";
   const assigneeFilter = searchParams.get("assignee") ?? "";
   const meetingFilter = searchParams.get("meeting") ?? "";
+
+  const search = searchParams.get("q") ?? "";
+  const setSearch = (v: string) => updateFilter("q", v);
 
   const updateFilter = (key: string, value: string) => {
     const next = new URLSearchParams(searchParams);
@@ -48,6 +52,11 @@ function ActionItems() {
       .catch((err) => setError(err instanceof Error ? err.message : "Failed to load action items."))
       .finally(() => setLoading(false));
   }, []);
+const hasActiveFilters = Boolean(search || statusFilter || assigneeFilter || meetingFilter);
+
+  const handleClearFilters = () => {
+    setSearchParams(new URLSearchParams(), { replace: true });
+  };
 
   const assigneeOptions = useMemo(() => {
     const relevant = meetingFilter
@@ -65,22 +74,26 @@ function ActionItems() {
   }, [items, meetingTitles]);
 
   const filteredItems = useMemo(() => {
+    const term = search.trim().toLowerCase();
     return items.filter((item) => {
+      const matchesSearch =
+        term === "" ||
+        item.description.toLowerCase().includes(term) ||
+        (item.details ?? "").toLowerCase().includes(term);
+      if (!matchesSearch) return false;
       if (statusFilter && item.status !== statusFilter) return false;
       if (assigneeFilter && item.assignee !== assigneeFilter) return false;
       if (meetingFilter && item.meetingId !== meetingFilter) return false;
       return true;
     });
-  }, [items, statusFilter, assigneeFilter, meetingFilter]);
+  }, [items, search, statusFilter, assigneeFilter, meetingFilter]);
 
   const totalPages = Math.max(1, Math.ceil(filteredItems.length / ACTION_ITEMS_PAGE_SIZE));
 
-  // changing a filter should always land back on page 1, not wherever you happened to be
   useEffect(() => {
     setPage(1);
-  }, [statusFilter, assigneeFilter, meetingFilter]);
+  }, [search, statusFilter, assigneeFilter, meetingFilter]);
 
-  // if the filtered set shrinks (e.g. an item is deleted) and the current page no longer exists, back up to the last valid one
   useEffect(() => {
     setPage((prev) => Math.min(prev, totalPages));
   }, [totalPages]);
@@ -92,8 +105,7 @@ function ActionItems() {
       return;
     }
     if (assigneeFilter) setAssigneeFilter("");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [meetingFilter]);
+    }, [meetingFilter]);
 
   const handleStatusChange = async (id: string, status: ActionItemStatus) => {
     const updated = await actionItemsApi.updateActionItem(id, { status });
@@ -117,16 +129,26 @@ function ActionItems() {
       <main className="action-items-content">
         <Header title="Action Items" />
 
-        <ActionItemFilters
-          status={statusFilter}
-          onStatusChange={setStatusFilter}
-          assignee={assigneeFilter}
-          onAssigneeChange={setAssigneeFilter}
-          meetingId={meetingFilter}
-          onMeetingChange={setMeetingFilter}
-          assigneeOptions={assigneeOptions}
-          meetingOptions={meetingOptions}
-        />
+        <div className="action-items-toolbar">
+          <Searchbar
+            value={search}
+            onChange={setSearch}
+            placeholder="Search..."
+          />
+
+          <ActionItemFilters
+            status={statusFilter}
+            onStatusChange={setStatusFilter}
+            assignee={assigneeFilter}
+            onAssigneeChange={setAssigneeFilter}
+            meetingId={meetingFilter}
+            onMeetingChange={setMeetingFilter}
+            assigneeOptions={assigneeOptions}
+            meetingOptions={meetingOptions}
+            hasActiveFilters={hasActiveFilters}
+            onClearFilters={handleClearFilters}
+          />
+        </div>
 
         {loading && (
           <div className="loading-row">
