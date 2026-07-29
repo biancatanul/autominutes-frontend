@@ -248,6 +248,7 @@ function MeetingDetail() {
             </span>
           }
         />
+        
 
         {loading && (
           <div className="loading-row">
@@ -289,7 +290,7 @@ function MeetingDetail() {
                 <section className="detail-section">
                   <h2>Transcript</h2>
 
-                  <input type="file" accept=".txt, .md, .csv, .vtt, .srt, .docx" onChange={handleFileUpload} />
+                  <input className="transcript-file" type="file" accept=".txt, .md, .csv, .vtt, .srt, .docx" onChange={handleFileUpload} />
 
                   <textarea
                     className="transcript-input"
