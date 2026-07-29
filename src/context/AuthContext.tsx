@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import type { ReactNode } from "react";
 import { apiFetch } from "../lib/api";
+import { getToken, getStoredUser, setSession, clearSession } from "../lib/authStorage"; 
 
 interface User {
     id: string;
@@ -11,7 +12,7 @@ interface User {
 interface AuthContextType {
     user: User | null;
     loading: boolean;
-    login: (token: string, user: User) => void;
+    login: (token: string, user: User, remember?: boolean) => void;
     logout: () => void;
 }
 
@@ -22,17 +23,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const token = localStorage.getItem("access_token");
+        const token = getToken();
 
         if (!token) {
             setLoading(false);
             return;
         }
         
-        const storedUser = localStorage.getItem("user");
+        const storedUser = getStoredUser<User>();
 
         if (storedUser) {
-            setUser(JSON.parse(storedUser));
+            setUser(storedUser);
         }
 
         apiFetch("/auth/me")
@@ -44,21 +45,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
                 setUser(data);
             })
             .catch(() => {
-                localStorage.removeItem("access_token");
+                clearSession();
                 setUser(null);
             })
             .finally(() => setLoading(false));
     }, []);
 
-    function login(token: string, user: User) {
-        localStorage.setItem("access_token", token);
-        localStorage.setItem("user", JSON.stringify(user));
+    function login(token: string, user: User, remember = true) {
+        setSession(token, user, remember);
         setUser(user);
     }
 
     function logout() {
-        localStorage.removeItem("access_token");
-        localStorage.removeItem("user");
+        clearSession();
         setUser(null);
     }
 

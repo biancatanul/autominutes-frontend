@@ -28,15 +28,8 @@ function Login() {
                 return;
             }
 
-            if (staySignedIn) {
-                localStorage.setItem("access_token", data.access_token);
-                localStorage.setItem("user", JSON.stringify(data.user));
-            } else {
-                sessionStorage.setItem("access_token", data.access_token);
-                sessionStorage.setItem("user", JSON.stringify(data.user));
-            }
 
-            login(data.access_token, data.user);
+            login(data.access_token, data.user, staySignedIn);
             navigate("/home");
 
         } catch (err) {

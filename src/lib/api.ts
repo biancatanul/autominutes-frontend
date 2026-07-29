@@ -1,8 +1,7 @@
+import { getToken } from "./authStorage";
+
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
-function getToken() {
-  return localStorage.getItem('access_token');
-}
 
 export async function apiFetch(path: string, options: RequestInit = {}) {
   const token = getToken();
