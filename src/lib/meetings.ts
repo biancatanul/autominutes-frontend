@@ -11,6 +11,8 @@ export type Meeting = {
   processingStatus: ProcessingStatus;
   createdAt: string;
   updatedAt: string;
+  attendeeCount?: number;
+  actionItemCount?: number;
 };
 
 export type CreateMeetingInput = {

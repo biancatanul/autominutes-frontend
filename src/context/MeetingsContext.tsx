@@ -7,6 +7,7 @@ const FETCH_LIMIT = 1000; // pull all meetings so filtering can see the whole se
 
 export type StatusFilter = ProcessingStatus | "all";
 export type SortOption = "date-desc" | "date-asc" | "title-asc" | "title-desc";
+export type ActionItemsFilter = "all" | "yes" | "no";
 
 type MeetingsContextType = {
   meetings: Meeting[];
@@ -25,6 +26,12 @@ type MeetingsContextType = {
   setStatusFilter: (v: StatusFilter) => void;
   sort: SortOption;
   setSort: (v: SortOption) => void;
+  dateFrom: string;
+  setDateFrom: (v: string) => void;
+  dateTo: string;
+  setDateTo: (v: string) => void;
+  actionItemsFilter: ActionItemsFilter;
+  setActionItemsFilter: (v: ActionItemsFilter) => void;
   filteredCount: number;
 };
 
@@ -39,6 +46,9 @@ export const MeetingsProvider = ({ children }: { children: ReactNode }) => {
   const [search, setSearchState] = useState("");
   const [statusFilter, setStatusFilterState] = useState<StatusFilter>("all");
   const [sort, setSort] = useState<SortOption>("date-desc");
+  const [dateFrom, setDateFromState] = useState("");
+  const [dateTo, setDateToState] = useState("");
+  const [actionItemsFilter, setActionItemsFilterState] = useState<ActionItemsFilter>("all");
 
   const refresh = useCallback(async () => {
     setLoading(true);
@@ -57,7 +67,10 @@ export const MeetingsProvider = ({ children }: { children: ReactNode }) => {
 
   const setSearch = useCallback((v: string) => { setSearchState(v); setPage(1); }, []);
   const setStatusFilter = useCallback((v: StatusFilter) => { setStatusFilterState(v); setPage(1); }, []);
-
+  const setDateFrom = useCallback((v: string) => { setDateFromState(v); setPage(1); }, []);
+  const setDateTo = useCallback((v: string) => { setDateToState(v); setPage(1); }, []);
+  const setActionItemsFilter = useCallback((v: ActionItemsFilter) => { setActionItemsFilterState(v); setPage(1); }, []);
+  
   const filtered = useMemo(() => {
     const term = search.trim().toLowerCase();
 
@@ -68,7 +81,23 @@ export const MeetingsProvider = ({ children }: { children: ReactNode }) => {
         (m.description ?? "").toLowerCase().includes(term) ||
         (m.transcript ?? "").toLowerCase().includes(term);
       const matchesStatus = statusFilter === "all" || m.processingStatus === statusFilter;
-      return matchesSearch && matchesStatus;
+
+      const meetingTime = new Date(m.datetime).getTime();
+      const matchesDateFrom = !dateFrom || meetingTime >= new Date(dateFrom).getTime();
+      const matchesDateTo = (() => {
+        if (!dateTo) return true;
+        const end = new Date(dateTo);
+        end.setHours(23, 59, 59, 999);
+        return meetingTime <= end.getTime();
+      })();
+
+      const count = m.actionItemCount ?? 0;
+      const matchesActionItems =
+        actionItemsFilter === "all" ||
+        (actionItemsFilter === "yes" && count > 0) ||
+        (actionItemsFilter === "no" && count === 0);
+
+      return matchesSearch && matchesStatus && matchesDateFrom && matchesDateTo && matchesActionItems;
     });
 
     return [...matched].sort((a, b) => {
@@ -84,7 +113,7 @@ export const MeetingsProvider = ({ children }: { children: ReactNode }) => {
           return new Date(b.datetime).getTime() - new Date(a.datetime).getTime();
   }
 });
-  }, [allMeetings, search, statusFilter, sort]);
+  }, [allMeetings, search, statusFilter, sort, dateFrom, dateTo, actionItemsFilter]);
 
   // client-side pagination over the filtered list
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
@@ -110,6 +139,8 @@ export const MeetingsProvider = ({ children }: { children: ReactNode }) => {
         page: currentPage, totalPages, setPage,
         refresh, addMeeting, removeMeeting,
         search, setSearch, statusFilter, setStatusFilter, sort, setSort,
+        dateFrom, setDateFrom, dateTo, setDateTo,
+        actionItemsFilter, setActionItemsFilter,
         filteredCount: filtered.length,
       }}
     >
