@@ -2,11 +2,12 @@
     background: var(--sidebar-bg);
     border-radius: 12px;
     overflow: hidden;
+    flex-shrink: 0;
 }
 
 .action-items-table-header {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
 
     padding: 16px 24px;
     background: var(--sidebar-border);
@@ -15,12 +16,13 @@
 }
 
 .action-items-table-header.with-meeting {
-    grid-template-columns: 2fr 1.4fr 1fr 1fr 1fr 0.6fr;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 0.6fr);
 }
 
 .action-items-table-body {
     display: flex;
     flex-direction: column;
+    min-height: 0;
 }
 
 .action-items-table-body .action-item-row-wrapper:last-child {
