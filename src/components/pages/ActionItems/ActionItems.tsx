@@ -1,4 +1,5 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useRef } from "react";
+import { useSearchParams } from "react-router-dom";
 import Sidebar from "@organisms/Sidebar/Sidebar";
 import Header from "@organisms/Header/Header";
 import ActionItemFilters from "@molecules/ActionItemFilters/ActionItemFilters";
@@ -15,9 +16,25 @@ function ActionItems() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const [statusFilter, setStatusFilter] = useState("");
-  const [assigneeFilter, setAssigneeFilter] = useState("");
-  const [meetingFilter, setMeetingFilter] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const statusFilter = searchParams.get("status") ?? "";
+  const assigneeFilter = searchParams.get("assignee") ?? "";
+  const meetingFilter = searchParams.get("meeting") ?? "";
+
+  const updateFilter = (key: string, value: string) => {
+    const next = new URLSearchParams(searchParams);
+    if (value) {
+      next.set(key, value);
+    } else {
+      next.delete(key);
+    }
+    setSearchParams(next, { replace: true });
+  };
+
+  const setStatusFilter = (v: string) => updateFilter("status", v);
+  const setAssigneeFilter = (v: string) => updateFilter("assignee", v);
+  const setMeetingFilter = (v: string) => updateFilter("meeting", v);
   const [page, setPage] = useState(1);
 
   useEffect(() => {
@@ -32,11 +49,13 @@ function ActionItems() {
       .finally(() => setLoading(false));
   }, []);
 
-  // built from the full, unfiltered item set so the dropdowns don't shrink as filters are applied
   const assigneeOptions = useMemo(() => {
-    const names = items.map((item) => item.assignee).filter((name): name is string => Boolean(name));
+    const relevant = meetingFilter
+      ? items.filter((item) => item.meetingId === meetingFilter)
+      : items;
+    const names = relevant.map((item) => item.assignee).filter((name): name is string => Boolean(name));
     return [...new Set(names)].sort((a, b) => a.localeCompare(b));
-  }, [items]);
+  }, [items, meetingFilter]);
 
   const meetingOptions = useMemo(() => {
     const idsInUse = new Set(items.map((item) => item.meetingId));
@@ -65,6 +84,16 @@ function ActionItems() {
   useEffect(() => {
     setPage((prev) => Math.min(prev, totalPages));
   }, [totalPages]);
+
+  const meetingFilterMounted = useRef(false);
+  useEffect(() => {
+    if (!meetingFilterMounted.current) {
+      meetingFilterMounted.current = true;
+      return;
+    }
+    if (assigneeFilter) setAssigneeFilter("");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [meetingFilter]);
 
   const handleStatusChange = async (id: string, status: ActionItemStatus) => {
     const updated = await actionItemsApi.updateActionItem(id, { status });
