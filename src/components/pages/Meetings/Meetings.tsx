@@ -1,10 +1,8 @@
 import Sidebar from "@organisms/Sidebar/Sidebar";
 import Header from "@organisms/Header/Header";
 import MeetingTable from "@organisms/MeetingTable/MeetingTable";
-import Button from "@atoms/Button/Button";
 import Searchbar from "@organisms/Searchbar/Searchbar";
-import NewMeetingModal from "@organisms/NewMeetingModal/NewMeetingModal";
-import { FiFilter, FiCalendar } from "react-icons/fi";
+import { FiFilter, FiCalendar, FiX } from "react-icons/fi";
 import FilterDropdown from "@molecules/FilterDropdown/FilterDropdown";
 import {
   useMeetings,
@@ -62,6 +60,24 @@ function Meetings() {
     if (actionItemsFilter !== "all") params.hasActionItems = actionItemsFilter;
     setSearchParams(params, { replace: true });
   }, [search, statusFilter, sort, dateFrom, dateTo, actionItemsFilter]);
+
+  const hasActiveFilters =
+    search !== "" ||
+    statusFilter !== "all" ||
+    sort !== "date-desc" ||
+    dateFrom !== "" ||
+    dateTo !== "" ||
+    actionItemsFilter !== "all";
+
+  const handleClearFilters = () => {
+    setSearch("");
+    setStatusFilter("all");
+    setSort("date-desc");
+    setDateFrom("");
+    setDateTo("");
+    setActionItemsFilter("all");
+  };
+
 
   return (
     <div className="meetings-page">
@@ -137,14 +153,20 @@ function Meetings() {
             ]}
           />
 
-          <Button text="+ New Meeting" onClick={() => setShowModal(true)} />
+          <button
+            type="button"
+            className="clear-filters-btn"
+            onClick={handleClearFilters}
+            disabled={!hasActiveFilters}
+          >
+            <FiX size={14} />
+            Clear filters
+          </button>
         </div>
       </div>
 
         <MeetingTable />
       </main>
-
-      {showModal && <NewMeetingModal onClose={() => setShowModal(false)} />}
     </div>
   );
 }

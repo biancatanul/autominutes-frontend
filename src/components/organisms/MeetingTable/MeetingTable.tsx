@@ -25,6 +25,7 @@ function MeetingTable() {
             <div className="table-header">
                 <div><FiFileText /> Title</div>
                 <div><FiFileText /> Date and Time</div>
+                <div><FiFileText /> Attendees</div>
                 <div><FiFileText /> Status</div>
                 <div><FiFileText /> Actions</div>
             </div>
@@ -51,6 +52,7 @@ function MeetingTable() {
                         >
                             <div>{meeting.title}</div>
                             <div>{formatDate(meeting.datetime)}</div>
+                            <div>{meeting.attendeeCount ?? 0}</div>
                             <div>
                                 <span className={`status-badge status-${meeting.processingStatus}`}>
                                 {meeting.processingStatus}

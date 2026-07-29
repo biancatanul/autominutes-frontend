@@ -9,7 +9,7 @@
 
 .table-header {
     display: grid;
-    grid-template-columns: 2fr 2fr 1fr 1fr 1fr;
+    grid-template-columns: 2fr 2fr 0.8fr 1fr 1fr;
 
     padding: 18px 24px;
 
@@ -30,7 +30,7 @@
 
 .table-row {
     display: grid;
-    grid-template-columns: 2fr 2fr 1fr 1fr 1fr;
+    grid-template-columns: 2fr 2fr 0.8fr 1fr 1fr;
 
     padding: 18px 24px;
 

@@ -71,3 +71,31 @@
 .date-range-filter input[type="date"]:focus {
     outline: none;
 }
+
+.clear-filters-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 12px;
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font: inherit;
+    font-size: 13px;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.clear-filters-btn:hover {
+    color: var(--text);
+    background: var(--surface-hover);
+}
+
+.clear-filters-btn:disabled {
+    color: var(--border);
+    cursor: not-allowed;
+}
+
+.clear-filters-btn:disabled:hover {
+    background: none;
+}
