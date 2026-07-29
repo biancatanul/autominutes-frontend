@@ -1,5 +1,5 @@
 import ActionItemRow from "@molecules/ActionItemRow/ActionItemRow";
-import type { ActionItem, ActionItemStatus } from "@/lib/actionItems";
+import type { ActionItem, ActionItemStatus, UpdateActionItemInput } from "@/lib/actionItems";
 import "./ActionItemsList.css";
 
 export const ACTION_ITEMS_PAGE_SIZE = 10;
@@ -8,15 +8,13 @@ type ActionItemsListProps = {
   items: ActionItem[];
   onStatusChange: (id: string, status: ActionItemStatus) => void;
   onDelete: (id: string, description: string) => void;
+  onUpdate: (id: string, updates: UpdateActionItemInput) => Promise<void>;
   meetingTitles?: Map<string, string>;
-  // only pass these when the caller wants pagination (the global Action Items page);
-  // MeetingDetail's per-meeting list omits them and renders everything at once
   page?: number;
   totalPages?: number;
   onPageChange?: (page: number) => void;
 };
 
-// OPEN/IN_PROGRESS/UNKNOWN first (things that still need attention), DONE last
 const STATUS_WEIGHT: Record<ActionItemStatus, number> = {
   OPEN: 0,
   IN_PROGRESS: 0,
@@ -29,7 +27,6 @@ function sortItems(items: ActionItem[]): ActionItem[] {
     const statusDiff = STATUS_WEIGHT[a.status] - STATUS_WEIGHT[b.status];
     if (statusDiff !== 0) return statusDiff;
 
-    // within the same group, soonest/overdue deadlines float to the top, no-deadline items sink
     if (a.deadline && b.deadline) return new Date(a.deadline).getTime() - new Date(b.deadline).getTime();
     if (a.deadline) return -1;
     if (b.deadline) return 1;
@@ -41,6 +38,7 @@ function ActionItemsList({
   items,
   onStatusChange,
   onDelete,
+  onUpdate,
   meetingTitles,
   page,
   totalPages,
@@ -76,6 +74,7 @@ function ActionItemsList({
             item={item}
             onStatusChange={onStatusChange}
             onDelete={onDelete}
+            onUpdate={onUpdate}
             meetingTitle={meetingTitles?.get(item.meetingId)}
             showMeetingColumn={showMeetingColumn}
           />

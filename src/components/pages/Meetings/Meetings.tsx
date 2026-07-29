@@ -16,7 +16,6 @@ import { useSearchParams } from "react-router-dom";
 import { LuArrowUpDown } from "react-icons/lu";
 
 function Meetings() {
-  const [showModal, setShowModal] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const {
     search, setSearch,

@@ -127,3 +127,36 @@
 .action-item-row .action-btn:hover {
     color: var(--danger);
 }
+
+.edit-input {
+    width: 100%;
+    padding: 6px 8px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font: inherit;
+    font-size: 13px;
+    background: var(--surface);
+    color: var(--text);
+}
+
+.edit-input:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.action-item-row-wrapper.editing {
+    background: var(--surface-hover);
+}
+
+.cell-actions {
+    gap: 6px;
+}
+
+.save-btn:hover {
+    color: var(--success);
+}
+
+.edit-error {
+    color: var(--danger);
+    padding-top: 0;
+}

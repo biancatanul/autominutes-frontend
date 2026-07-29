@@ -160,6 +160,11 @@ function MeetingDetail() {
     setActionItems((prev) => prev.filter((item) => item._id !== itemId));
   };
 
+  const handleUpdateActionItem = async (itemId: string, updates: Parameters<typeof actionItemsApi.updateActionItem>[1]) => {
+    const updated = await actionItemsApi.updateActionItem(itemId, updates);
+    setActionItems((prev) => prev.map((item) => (item._id === itemId ? updated : item)));
+  };
+
   const SUPPORTED_TEXT = /\.(txt|md|csv|vtt|srt)$/i;
 
   const handleFileUpload = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -353,6 +358,7 @@ function MeetingDetail() {
                       items={actionItems}
                       onStatusChange={handleActionItemStatusChange}
                       onDelete={handleDeleteActionItem}
+                      onUpdate={handleUpdateActionItem}
                     />
                   )}
                 </section>

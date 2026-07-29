@@ -77,6 +77,11 @@ function ActionItems() {
     setItems((prev) => prev.filter((item) => item._id !== id));
   };
 
+  const handleUpdate = async (id: string, updates: Parameters<typeof actionItemsApi.updateActionItem>[1]) => {
+    const updated = await actionItemsApi.updateActionItem(id, updates);
+    setItems((prev) => prev.map((item) => (item._id === id ? updated : item)));
+  };
+
   return (
     <div className="action-items-page">
       <Sidebar />
@@ -107,6 +112,7 @@ function ActionItems() {
             items={filteredItems}
             onStatusChange={handleStatusChange}
             onDelete={handleDelete}
+            onUpdate={handleUpdate}
             meetingTitles={meetingTitles}
             page={page}
             totalPages={totalPages}
