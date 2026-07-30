@@ -23,7 +23,6 @@ function RecentMeetings({ meetings, onOpen, onDelete }: RecentMeetingsProps) {
                     <RecentMeetingCard
                         key={meeting._id}
                         title={meeting.title}
-                        description={meeting.description ?? "No description provided."}
                         date={meeting.datetime}
                         onOpen={() => onOpen(meeting._id)}
                         onDelete={() => onDelete(meeting._id, meeting.title)}

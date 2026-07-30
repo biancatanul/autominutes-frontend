@@ -21,16 +21,13 @@
     font-weight:500;
 }
 
-.recent-card p{
+.recent-card-date {
     margin-top:15px;
     color:var(--text-secondary);
+    font-size:17px;
+    font-weight:500;
     line-height:1.4;
     flex:1;
-}
-
-.recent-card span{
-    color:var(--text-secondary);
-    font-size:14px;
 }
 
 .recent-card-buttons{
@@ -44,15 +41,9 @@
     margin-top:20px;
 }
 
-.recent-card-buttons button{
-
-    border:none;
-
-    background:none;
-
-    color:var(--primary);
-
-    cursor:pointer;
+.recent-card-buttons .button{
+    padding: 8px 16px;
+    font-size: 14px;
 }
 
 @media (max-width: 768px) {

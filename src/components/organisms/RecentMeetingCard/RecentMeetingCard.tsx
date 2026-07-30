@@ -1,9 +1,9 @@
 import "./RecentMeetingCard.css";
-import { formatDate } from "@/lib/formatDate";
+import { formatDateTime } from "@/lib/formatDate";
+import Button from "@atoms/Button/Button";
 
 type RecentMeetingCardProps = {
   title: string;
-  description: string;
   date: string;
   onOpen: () => void;
   onDelete: () => void;
@@ -11,7 +11,6 @@ type RecentMeetingCardProps = {
 
 function RecentMeetingCard({
   title,
-  description,
   date,
   onOpen,
   onDelete,
@@ -20,13 +19,11 @@ function RecentMeetingCard({
     <div className="recent-card">
       <h3>{title}</h3>
 
-      <p>{description}</p>
-
-      <span>{formatDate(date)}</span>
+      <p className="recent-card-date">{formatDateTime(date)}</p>
 
       <div className="recent-card-buttons">
-        <button onClick={onOpen}>Open</button>
-        <button onClick={onDelete}>Delete</button>
+        <Button text="Open" onClick={onOpen} />
+        <Button text="Delete" onClick={onDelete} />
       </div>
     </div>
   );
