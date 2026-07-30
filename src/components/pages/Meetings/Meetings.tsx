@@ -2,6 +2,7 @@ import Sidebar from "@organisms/Sidebar/Sidebar";
 import Header from "@organisms/Header/Header";
 import MeetingTable from "@organisms/MeetingTable/MeetingTable";
 import Searchbar from "@organisms/Searchbar/Searchbar";
+import Pagination from "@molecules/Pagination/Pagination";
 import { FiFilter, FiCalendar, FiX } from "react-icons/fi";
 import FilterDropdown from "@molecules/FilterDropdown/FilterDropdown";
 import {
@@ -11,7 +12,7 @@ import {
   type ActionItemsFilter,
 } from "@/context/MeetingsContext";
 import "./Meetings.css";
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
 import { LuArrowUpDown } from "react-icons/lu";
 
@@ -25,6 +26,7 @@ function Meetings() {
     dateTo, setDateTo,
     actionItemsFilter, setActionItemsFilter,
     filteredCount,
+    page, totalPages, setPage,
   } = useMeetings();
 
   // hydrate filters from the URL once, on first mount
@@ -161,6 +163,13 @@ function Meetings() {
             <FiX size={14} />
             Clear filters
           </button>
+
+          <Pagination
+            page={page}
+            totalPages={totalPages}
+            onPageChange={setPage}
+            className="pagination-toolbar"
+          />
         </div>
       </div>
 

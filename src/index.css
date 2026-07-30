@@ -36,6 +36,10 @@
     --status-completed-text: #1e7a34;
     --status-failed-bg: #fbe3e3;
     --status-failed-text: #c0392b;
+
+    --nav-active-bg: var(--primary-light);
+    --nav-active-text: #6d4bc3;
+    --nav-hover-bg: var(--surface-hover);
 }
 
 
@@ -73,6 +77,10 @@ body.dark {
     --status-completed-text: #4ade80;
     --status-failed-bg: #3a1c1c;
     --status-failed-text: #f87171;
+
+    --nav-active-bg: #1a1428;
+    --nav-active-text: var(--primary);
+    --nav-hover-bg: rgba(169, 159, 214, 0.1);
 }
 
 

@@ -147,6 +147,9 @@ const hasActiveFilters = Boolean(search || statusFilter || assigneeFilter || mee
             meetingOptions={meetingOptions}
             hasActiveFilters={hasActiveFilters}
             onClearFilters={handleClearFilters}
+            page={page}
+            totalPages={totalPages}
+            onPageChange={setPage}
           />
         </div>
 

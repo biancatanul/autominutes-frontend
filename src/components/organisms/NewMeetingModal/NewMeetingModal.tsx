@@ -2,6 +2,7 @@ import { useState, type FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMeetings } from "@/context/MeetingsContext";
 import Button from "@atoms/Button/Button";
+import DatePicker from "@molecules/DatePicker/DatePicker";
 import "./NewMeetingModal.css";
 
 type NewMeetingModalProps = {
@@ -13,7 +14,8 @@ function NewMeetingModal({ onClose }: NewMeetingModalProps) {
   const navigate = useNavigate();
 
   const [title, setTitle] = useState("");
-  const [datetime, setDatetime] = useState("");
+  const [date, setDate] = useState("");
+  const [time, setTime] = useState("");
   const [description, setDescription] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
@@ -25,7 +27,7 @@ function NewMeetingModal({ onClose }: NewMeetingModalProps) {
       setError("Title is required.");
       return;
     }
-    if (!datetime) {
+    if (!date || !time) {
       setError("Date and time is required.");
       return;
     }
@@ -36,7 +38,7 @@ function NewMeetingModal({ onClose }: NewMeetingModalProps) {
     try {
       const meeting = await addMeeting({
         title: title.trim(),
-        datetime: new Date(datetime).toISOString(),
+        datetime: new Date(`${date}T${time}`).toISOString(),
         description: description.trim() || undefined,
       });
       onClose();
@@ -59,14 +61,21 @@ function NewMeetingModal({ onClose }: NewMeetingModalProps) {
             <input value={title} onChange={(e) => setTitle(e.target.value)} />
           </label>
 
-          <label>
-            Date and time
-            <input
-              type="datetime-local"
-              value={datetime}
-              onChange={(e) => setDatetime(e.target.value)}
-            />
-          </label>
+          <div className="modal-field-row">
+            <label>
+              Date
+              <DatePicker value={date} onChange={setDate} />
+            </label>
+
+            <label>
+              Time
+              <input
+                type="time"
+                value={time}
+                onChange={(e) => setTime(e.target.value)}
+              />
+            </label>
+          </div>
 
           <label>
             Description (optional)

@@ -25,7 +25,7 @@
     flex-shrink: 0;
 
     border-radius: 10px;
-    background: var(--primary-light);
+    background: var(--nav-active-bg);
     color: var(--primary);
 }
 

@@ -52,12 +52,12 @@
 }
 
 .nav-item:hover {
-    background: var(--surface-hover);
+    background: var(--nav-hover-bg);
 }
 
 .nav-item.active {
-    background: var(--primary-light);
-    color: #6d4bc3;
+    background: var(--nav-active-bg);
+    color: var(--nav-active-text);
 }
 
 .nav-item span {

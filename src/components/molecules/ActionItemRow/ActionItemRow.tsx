@@ -184,7 +184,7 @@ function ActionItemRow({
       <div className="cell cell-deadline">
         {item.deadline ? (
           <span className={isOverdue ? "deadline-overdue" : ""}>
-            {formatDate(item.deadline)}
+            <span className="deadline-date">{formatDate(item.deadline)}</span>
             {isOverdue && <span className="overdue-badge">Overdue</span>}
           </span>
         ) : (

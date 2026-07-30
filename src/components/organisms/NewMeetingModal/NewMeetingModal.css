@@ -32,10 +32,24 @@
 
 .modal input,
 .modal textarea {
+    width: 100%;
+    box-sizing: border-box;
     padding: 8px 10px;
     border: 1px solid var(--border);
     border-radius: 8px;
     font-family: inherit;
+    background: var(--surface);
+    color: var(--text);
+}
+
+.modal-field-row {
+    display: flex;
+    gap: 14px;
+}
+
+.modal-field-row label {
+    flex: 1;
+    min-width: 0;
 }
 
 .modal-error {
@@ -47,4 +61,10 @@
     display: flex;
     justify-content: flex-end;
     gap: 10px;
+}
+
+@media (max-width: 420px) {
+    .modal-field-row {
+        flex-direction: column;
+    }
 }

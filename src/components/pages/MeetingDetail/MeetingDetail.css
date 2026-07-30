@@ -222,6 +222,11 @@
    padding-left: 20px;
 }
 
+.meeting-detail-layout .action-items-table-body {
+    max-height: 165px;
+    overflow-y: auto;
+}
+
 .meeting-detail-layout button {
     background: var(--button-bg);
     color: #fff;
@@ -332,6 +337,10 @@
 
     .meeting-detail-layout {
         flex-direction: column;
+    }
+
+    .meeting-detail-main {
+        width: 100%;
     }
 
     .meeting-detail-sidebar {

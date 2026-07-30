@@ -75,41 +75,16 @@
     cursor: pointer;
 }
 
-.pagination {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    padding: 18px 24px;
+.meeting-table .pagination-bottom {
     position: sticky;
     bottom: 0;
     background: var(--sidebar-bg);
     z-index: 2;
 }
 
-.pagination button {
-    width: 34px;
-    height: 34px;
-
-    border: none;
-    border-radius: 8px;
-
-    background: transparent;
-    cursor: pointer;
-}
-
-.pagination button.active {
-    background: var(--primary);
-    color: white;
-}
-
 @media (max-width: 768px) {
     .table-header,
     .table-row {
         min-width: 640px;
-    }
-
-    .pagination {
-        flex-wrap: wrap;
-        padding: 14px 16px;
     }
 }

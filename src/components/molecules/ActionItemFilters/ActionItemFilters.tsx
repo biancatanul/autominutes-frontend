@@ -1,5 +1,6 @@
 import { FiFilter, FiX } from "react-icons/fi";
 import FilterDropdown from "@molecules/FilterDropdown/FilterDropdown";
+import Pagination from "@molecules/Pagination/Pagination";
 
 type MeetingOption = {
   id: string;
@@ -17,6 +18,9 @@ type ActionItemFiltersProps = {
   meetingOptions: MeetingOption[];
   hasActiveFilters: boolean;
   onClearFilters: () => void;
+  page?: number;
+  totalPages?: number;
+  onPageChange?: (page: number) => void;
 };
 
 function ActionItemFilters({
@@ -30,6 +34,9 @@ function ActionItemFilters({
   meetingOptions,
   hasActiveFilters,
   onClearFilters,
+  page,
+  totalPages,
+  onPageChange,
 }: ActionItemFiltersProps) {
   return (
     <div className="action-item-filters">
@@ -78,6 +85,15 @@ function ActionItemFilters({
         <FiX size={14} />
         Clear filters
       </button>
+
+      {page !== undefined && totalPages !== undefined && onPageChange !== undefined && (
+        <Pagination
+          page={page}
+          totalPages={totalPages}
+          onPageChange={onPageChange}
+          className="pagination-toolbar"
+        />
+      )}
     </div>
   );
 }

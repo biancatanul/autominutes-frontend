@@ -4,6 +4,7 @@ import { FiFileText, FiTrash2 } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import { formatDateTime } from "@/lib/formatDate";
 import Spinner from "@atoms/Spinner/Spinner";
+import Pagination from "@molecules/Pagination/Pagination";
 
 function formatDate(iso: string){
     return formatDateTime(iso);
@@ -76,25 +77,12 @@ function MeetingTable() {
 
             </div>
 
-            <div className="pagination">
-                <button disabled={page <= 1} onClick={() => setPage(page - 1)}>
-                    Prev
-                </button>
-
-                {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
-                    <button
-                        key={p}
-                        className={p === page ? "active" : ""}
-                        onClick={() => setPage(p)}
-                    >
-                        {p}
-                    </button>
-                ))}
-
-                <button disabled={page >= totalPages} onClick={() => setPage(page + 1)}>
-                    Next
-                </button>
-            </div>
+            <Pagination
+                page={page}
+                totalPages={totalPages}
+                onPageChange={setPage}
+                className="pagination-bottom"
+            />
         </div>
     );
 }

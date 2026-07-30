@@ -66,8 +66,14 @@
     color: var(--danger);
     font-weight: 600;
     display: inline-flex;
-    align-items: center;
-    gap: 6px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 4px 6px;
+}
+
+.deadline-date {
+    white-space: nowrap;
+    color: inherit;
 }
 
 .overdue-badge {
@@ -79,6 +85,7 @@
     letter-spacing: 0.03em;
     padding: 2px 8px;
     border-radius: 999px;
+    white-space: nowrap;
 }
 
 .status-select {

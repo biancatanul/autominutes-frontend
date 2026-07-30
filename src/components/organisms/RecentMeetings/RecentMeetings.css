@@ -33,3 +33,15 @@
     color: var(--text-secondary);
     line-height: 1.4;
 }
+
+@media (max-width: 768px) {
+    .recent-meetings {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .no-meetings {
+        width: 100%;
+        box-sizing: border-box;
+    }
+}
