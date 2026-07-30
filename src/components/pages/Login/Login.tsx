@@ -10,7 +10,8 @@ function Login() {
     const [password, setPassword] = useState("");
     const [staySignedIn, setSignedIn] = useState(false);
     const [isDark, setIsDark] = useState(() => {
-    return localStorage.getItem("darkMode") === "true";});
+        return localStorage.getItem("theme") === "dark";
+    });
 
     const { login } = useAuth();
     const navigate = useNavigate();
@@ -50,7 +51,8 @@ function Login() {
                         const newValue = !isDark;
 
                         setIsDark(newValue);
-                        localStorage.setItem("darkMode", String(newValue));
+                        localStorage.setItem("theme", newValue ? "dark" : "light");
+                        document.body.classList.toggle("dark", newValue);
                     }}
                 />
             </div>

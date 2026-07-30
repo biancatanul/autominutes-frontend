@@ -12,18 +12,14 @@
 
     box-sizing: border-box;
 
-    background: #ffffff;
+    background: linear-gradient(135deg, #efe9fc 0%, #9488cc 55%, #5f5594 100%);
     color: #222;
 
-    transition:
-        background 0.25s ease,
-        color 0.25s ease;
+    transition: color 0.25s ease;
 }
 
-/* Dark mode */
-
 .signup-page.dark-mode {
-    background: #17121f;
+    background: linear-gradient(135deg, #17121f 0%, #241b37 55%, #3c2d58 100%);
     color: #ffffff;
 }
 

@@ -12,7 +12,7 @@ function Signup() {
     const [confirmPassword, setConfirmPassword] = useState("");
 
     const [isDark, setIsDark] = useState(() => {
-        return localStorage.getItem("darkMode") === "true";
+        return localStorage.getItem("theme") === "dark";
     });
 
     const { login } = useAuth();
@@ -21,7 +21,8 @@ function Signup() {
     const toggleDarkMode = () => {
         setIsDark(prev => {
             const newValue = !prev;
-            localStorage.setItem("darkMode", String(newValue));
+            localStorage.setItem("theme", newValue ? "dark" : "light");
+            document.body.classList.toggle("dark", newValue);
             return newValue;
         });
     };
