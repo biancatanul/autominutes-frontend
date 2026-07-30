@@ -67,10 +67,7 @@ function Login() {
                         onChange = {(e) => setSignedIn(e.target.checked)}
                     />
                 </div>
-                
-                <Link to = "/forgot-password" className = "forgot-password">
-                    Forgot Password?
-                </Link>
+    
 
                 <button onClick = {handleLogin}>
                     Sign In
