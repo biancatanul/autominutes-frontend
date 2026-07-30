@@ -41,12 +41,17 @@
 .date-range-filter {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     padding: 9px 14px;
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 8px;
     color: var(--text-secondary);
+    transition: border-color 0.15s;
+}
+
+.date-range-filter:hover {
+    border-color: var(--primary);
 }
 
 .date-range-filter:focus-within {
@@ -59,17 +64,32 @@
     flex-shrink: 0;
 }
 
+.date-range-filter > span {
+    color: var(--text-secondary);
+}
+
 .date-range-filter input[type="date"] {
     border: none;
     background: transparent;
     font: inherit;
     font-size: 13px;
     color: var(--text);
-    width: 120px;
+    cursor: pointer;
+    padding: 3px 6px;
+    border-radius: 6px;
+    transition: background 0.15s;
 }
 
+.date-range-filter input[type="date"]:hover,
 .date-range-filter input[type="date"]:focus {
     outline: none;
+    background: var(--surface-hover);
+}
+
+.date-range-filter input[type="date"]::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+    appearance: none;
 }
 
 .clear-filters-btn {

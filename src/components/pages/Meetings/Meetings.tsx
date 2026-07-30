@@ -130,6 +130,7 @@ function Meetings() {
                 type="date"
                 value={dateFrom}
                 onChange={(e) => setDateFrom(e.target.value)}
+                onClick={(e) => e.currentTarget.showPicker?.()}
                 aria-label="From date"
               />
               <span>–</span>
@@ -137,6 +138,7 @@ function Meetings() {
                 type="date"
                 value={dateTo}
                 onChange={(e) => setDateTo(e.target.value)}
+                onClick={(e) => e.currentTarget.showPicker?.()}
                 aria-label="To date"
               />
           </div>
