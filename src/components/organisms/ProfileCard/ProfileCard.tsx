@@ -1,6 +1,7 @@
 import "./ProfileCard.css";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../context/AuthContext";
+import { getProfileIcon } from "../../../lib/profileIcons";
 import { useState, useRef, useEffect } from "react";
 
 function ProfileCard() {
@@ -36,10 +37,12 @@ function ProfileCard() {
         .join("")
         .toUpperCase();
 
+    const avatarIcon = getProfileIcon(user.avatarIcon);
+
     return (
          <div className="profile-card" ref={cardRef}>
             <button className="profile-card-trigger" onClick={() => setMenuOpen((open) => !open)}>
-                <span className="profile-card-avatar">{initials}</span>
+                <span className="profile-card-avatar">{avatarIcon ?? initials}</span>
                 <span>{user.name}</span>
             </button>
 
