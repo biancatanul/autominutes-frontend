@@ -1,11 +1,41 @@
 .login-page {
+    position: relative;
+
     font-family: 'Tahoma', sans-serif;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     min-height: 100vh;
+    padding: 16px;
+
+    box-sizing: border-box;
+
     background: #ffffff;
+    color: #222;
+
+    transition:
+        background 0.25s ease,
+        color 0.25s ease;
 }
+
+
+
+.login-page.dark-mode {
+    background: #17121f;
+    color: #ffffff;
+}
+
+
+
+.login-dark-mode {
+    position: absolute;
+
+    top: 25px;
+    right: 25px;
+}
+
 
 
 .login-form {
@@ -14,77 +44,167 @@
     gap: 20px;
 
     width: 400px;
-    height: 400px;
+    min-height: 400px;
 
     padding: 30px;
 
+    box-sizing: border-box;
+
     background: #f5efff;
+
     border-radius: 10px;
+
+    transition:
+        background 0.25s ease,
+        box-shadow 0.25s ease;
 }
 
-.login-form input {
+
+.login-page.dark-mode .login-form {
+    background: #21182b;
+
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+}
+
+
+.login-form h1 {
+    color: #222;
+
+    transition: color 0.25s ease;
+}
+
+.login-page.dark-mode .login-form h1 {
+    color: #ffffff;
+}
+
+
+.login-form input[type="email"],
+.login-form input[type="password"] {
+    width: 100%;
+
+    box-sizing: border-box;
+
     padding: 10px;
+
     border: 1px solid #8b7bbf6c;
     border-radius: 5px;
+
+    background: #ffffff;
+    color: #222;
+
     font-size: 16px;
+
+    transition:
+        background 0.25s ease,
+        color 0.25s ease,
+        border-color 0.25s ease;
 }
 
-.login-form input:focus {
+.login-form input[type="email"]:focus,
+.login-form input[type="password"]:focus {
     outline: none;
-    border-color: #6c4de675;
+    border-color: #6c4de6;
 }
 
-.login-form button {
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: #9488cc;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
+
+.login-page.dark-mode .login-form input[type="email"],
+.login-page.dark-mode .login-form input[type="password"] {
+    background: #17121f;
+    color: #ffffff;
+
+    border-color: #49365d;
 }
 
-.remember-me { 
+.login-page.dark-mode .login-form input::placeholder {
+    color: #a99caf;
+}
+
+
+.remember-me {
     display: flex;
+    align-items: center;
     justify-content: flex-end;
+
     gap: 5px;
+
+    color: #333;
 }
 
 .remember-me label {
     font-size: 14px;
 }
 
+.login-page.dark-mode .remember-me {
+    color: #c8bdce;
+}
+
+
+.login-form button {
+    padding: 10px;
+
+    border: none;
+    border-radius: 5px;
+
+    background-color: #9488cc;
+    color: white;
+
+    font-family: 'Tahoma', sans-serif;
+    font-size: 16px;
+
+    cursor: pointer;
+
+    transition: background 0.2s ease;
+}
+
 .login-form button:hover {
     background: #7e71c5;
-    cursor: pointer;
 }
 
-
-.forgot-password {
-    text-decoration: none;
-    color: #6c4de6a8;
-    font-size: 14px;
-}
-
+.forgot-password,
 .signup-link {
     text-decoration: none;
+
     color: #6c4de6a8;
+
     font-size: 14px;
-    margin-top: 10px;
 }
 
-p {
+.forgot-password:hover,
+.signup-link:hover {
+    text-decoration: underline;
+}
+
+.login-form p {
     font-size: 14px;
     color: #333;
+    text-align: center;
 }
 
+.login-page.dark-mode .login-form p {
+    color: #b9adbf;
+}
+
+.login-page.dark-mode .forgot-password,
+.login-page.dark-mode .signup-link {
+    color: #a78bdb;
+}
+
+
 @media (max-width: 480px) {
+
     .login-page {
         padding: 16px;
     }
 
+    .login-dark-mode {
+        top: 15px;
+        right: 15px;
+    }
+
     .login-form {
         width: 100%;
+        min-height: auto;
+
         padding: 24px 20px;
     }
 }

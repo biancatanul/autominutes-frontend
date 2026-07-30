@@ -3,14 +3,17 @@ import "./Login.css";
 import { useState } from "react";
 import { apiFetch } from "../../../lib/api";
 import { useAuth } from "../../../context/AuthContext";
+import DarkModeToggle from "../../atoms/DarkModeToggle/DarkModeToggle";
 
 function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [staySignedIn, setSignedIn] = useState(false);
+    const [isDark, setIsDark] = useState(() => {
+    return localStorage.getItem("darkMode") === "true";});
+
     const { login } = useAuth();
     const navigate = useNavigate();
-
 
     const handleLogin = async () => {
         try {
@@ -28,7 +31,6 @@ function Login() {
                 return;
             }
 
-
             login(data.access_token, data.user, staySignedIn);
             navigate("/home");
 
@@ -39,20 +41,36 @@ function Login() {
     };
 
     return (
-        <div className = "login-page">
-            <div className = "login-form">
+        <div className={`login-page ${isDark ? "dark-mode" : ""}`}>
+
+            <div className="login-dark-mode">
+                <DarkModeToggle
+                    isDark={isDark}
+                    onToggle={() => {
+                        const newValue = !isDark;
+
+                        setIsDark(newValue);
+                        localStorage.setItem("darkMode", String(newValue));
+                    }}
+                />
+            </div>
+
+            <div className="login-form">
+
                 <h1>Sign In</h1>
+
                 <input
-                    type = "email"
-                    placeholder = "Email"
-                    value = {email}
+                    type="email"
+                    placeholder="Email"
+                    value={email}
                     onChange={(e) => setEmail(e.target.value)}
                 />
+
                 <input
-                    type = "password"
-                    placeholder = "Password"
-                    value = {password}
-                    onChange = {(e) => setPassword(e.target.value)}
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                 />
 
                 <div className="remember-me">
@@ -61,21 +79,25 @@ function Login() {
                     </label>
 
                     <input
-                        type = "checkbox"
-                        id = "staySignedIn"
-                        checked = {staySignedIn}
-                        onChange = {(e) => setSignedIn(e.target.checked)}
+                        type="checkbox"
+                        id="staySignedIn"
+                        checked={staySignedIn}
+                        onChange={(e) => setSignedIn(e.target.checked)}
                     />
                 </div>
-    
 
-                <button onClick = {handleLogin}>
+                <button onClick={handleLogin}>
                     Sign In
                 </button>
-                <p>New to our platform? <Link to = "/Signup" className = "signup-link">Join now</Link></p>
-            </div>
 
-            
+                <p>
+                    New to our platform?{" "}
+                    <Link to="/Signup" className="signup-link">
+                        Join now
+                    </Link>
+                </p>
+
+            </div>
         </div>
     );
 }
