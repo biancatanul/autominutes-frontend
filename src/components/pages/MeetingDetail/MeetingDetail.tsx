@@ -1,4 +1,4 @@
-import { useEffect, useState, type FormEvent, type ChangeEvent } from "react";
+import { useEffect, useState, useCallback, type FormEvent, type ChangeEvent } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import Sidebar from "@organisms/Sidebar/Sidebar";
 import Header from "@organisms/Header/Header";
@@ -17,6 +17,8 @@ import { formatDateTime, formatDate, formatTime } from "@/lib/formatDate";
 import { FiCalendar, FiClock } from "react-icons/fi";
 import { FiChevronRight } from "react-icons/fi";
 import Spinner from "@atoms/Spinner/Spinner";
+import * as transcriptsApi from "@/lib/transcripts";
+import type { TranscriptVersion } from "@/lib/transcripts";
 
 function MeetingDetail() {
   const { id } = useParams<{ id: string }>();
@@ -37,6 +39,20 @@ function MeetingDetail() {
   const [savingTranscript, setSavingTranscript] = useState(false);
   const [transcriptError, setTranscriptError] = useState<string | null>(null);
   const [transcriptSaved, setTranscriptSaved] = useState(false);
+  const [versions, setVersions] = useState<TranscriptVersion[]>([]);
+
+    const loadVersions = useCallback(async () => {
+    if (!id) return;
+    try {
+      const res = await transcriptsApi.getTranscriptVersions(id);
+      setVersions(res.versions);
+    } catch {
+    }
+  }, [id]);
+
+  useEffect(() => {
+    void loadVersions();
+  }, [loadVersions]);
 
   const [aiResult, setAiResult] = useState<AiResult | null>(null);
   const [processing, setProcessing] = useState(false);
@@ -171,49 +187,32 @@ function MeetingDetail() {
     setActionItems((prev) => prev.map((item) => (item._id === itemId ? updated : item)));
   };
 
-  const SUPPORTED_TEXT = /\.(txt|md|csv|vtt|srt)$/i;
+    const SUPPORTED = /\.(txt|md|csv|vtt|srt|docx)$/i;
 
   const handleFileUpload = async (e: ChangeEvent<HTMLInputElement>) => {
-  const file = e.target.files?.[0];
-  if (!file) return;
+    const file = e.target.files?.[0];
+    if (!file || !id) return;
+    setTranscriptError(null);
 
-  setTranscriptError(null);
-
-  try {
-    let text: string;
-
-    if (file.name.toLowerCase().endsWith(".docx")) {
-      //mammoth to parse .docx
-      const mammoth = (await import("mammoth")).default ?? (await import("mammoth"));
-      const { value } = await mammoth.extractRawText({
-        arrayBuffer: await file.arrayBuffer(),
-      });
-      text = value;
-    } else if (SUPPORTED_TEXT.test(file.name)) {
-      text = await file.text();
-    } else {
-      setTranscriptError(
-        `"${file.name}" is unsupported. Please upload a .txt, .md, or .docx file.`,
-      );
+    if (!SUPPORTED.test(file.name)) {
+      setTranscriptError(`"${file.name}" is unsupported. Please upload a .txt, .md, or .docx file.`);
       e.target.value = "";
       return;
     }
 
-    if (!text.trim()) {
-      setTranscriptError(`"${file.name}" appears to be empty.`);
+    setSavingTranscript(true);
+    try {
+      const created = await transcriptsApi.uploadTranscriptFile(id, file); // backend extracts + stores the original
+      setTranscriptText(created.text ?? "");
+      setTranscriptSaved(true);
+      await loadVersions();
+    } catch (err) {
+      setTranscriptError(err instanceof Error ? err.message : `Couldn't upload "${file.name}".`);
+    } finally {
+      setSavingTranscript(false);
       e.target.value = "";
-      return;
     }
-
-    setTranscriptText(text);
-    setTranscriptSaved(false);
-  } catch (err) {
-    console.error(err);
-    setTranscriptError(`Couldn't read "${file.name}". Try a different file.`);
-  } finally {
-    e.target.value = "";
-  }
-};
+  };
 
   const handleSaveTranscript = async () => {
     if (!id) return;
@@ -228,6 +227,7 @@ function MeetingDetail() {
       const updated = await meetingsApi.setTranscript(id, transcript);
       setMeeting(updated);
       setTranscriptSaved(true);
+      await loadVersions();
     } catch (err) {
       setTranscriptError(err instanceof Error ? err.message : "Failed to save transcript.");
     } finally {
@@ -309,6 +309,36 @@ function MeetingDetail() {
 
                   {transcriptSaved && <p className="success">Transcript saved.</p>}
                   {transcriptError && <p className="error">{transcriptError}</p>}
+                </section>
+
+                                <section className="detail-section">
+                  <h2>
+                    Transcript history
+                    {versions.length > 0 && <span className="count-badge">{versions.length}</span>}
+                  </h2>
+
+                  {versions.length === 0 ? (
+                    <p className="muted">No versions yet.</p>
+                  ) : (
+                    <ul className="version-list">
+                      {versions.map((v) => (
+                        <li key={v.version}>
+                          <span className="version-num">v{v.version}</span>
+                          <span className="version-name">{v.filename ?? "Pasted text"}</span>
+                          <span className="version-date">{new Date(v.createdAt).toLocaleString()}</span>
+                          <span className="version-size">
+                            {v.size ? `${(v.size / 1024).toFixed(1)} KB` : ""}
+                          </span>
+                          <button
+                            className="version-download"
+                            onClick={() => id && transcriptsApi.downloadTranscriptVersion(id, v.version)}
+                          >
+                            Download
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </section>
 
                 <section className="detail-section">
