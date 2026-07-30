@@ -63,6 +63,30 @@
     gap: 10px;
 }
 
+.transcript-file {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.transcript-file::file-selector-button {
+    margin-right: 12px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    background: var(--primary);
+    color: #fff;
+    font: inherit;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.transcript-file::file-selector-button:hover {
+    background: var(--primary-dark);
+}
+
 @media (max-width: 420px) {
     .modal-field-row {
         flex-direction: column;
