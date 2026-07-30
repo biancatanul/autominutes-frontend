@@ -5,11 +5,11 @@ import Meetings from "./components/pages/Meetings/Meetings";
 import HowItWorks from "./components/pages/HowItWorks/HowItWorks";
 import Login from "./components/pages/Login/Login";
 import Signup from "./components/pages/Signup/Signup";
-import ForgotPassword from "./components/pages/ForgotPassword/ForgotPassword";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import Landing from "@pages/Landing/Landing";
 import MeetingDetail from "@pages/MeetingDetail/MeetingDetail";
 import ActionItems from "@pages/ActionItems/ActionItems";
+import ProfilePage from "@pages/ProfilePage/ProfilePage"
 
 function App() {
   return (
@@ -18,7 +18,7 @@ function App() {
         <Route path="/" element={<Landing />} />
         <Route path="/Signup" element={<Signup />} />
         <Route path="/Login" element={<Login />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/profile" element={<ProfilePage />} />
         <Route
           path="/home"
           element={

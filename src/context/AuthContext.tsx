@@ -1,7 +1,12 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import type { ReactNode } from "react";
 import { apiFetch } from "../lib/api";
-import { getToken, getStoredUser, setSession, clearSession } from "../lib/authStorage"; 
+import {
+    getToken,
+    getStoredUser,
+    setSession,
+    clearSession
+} from "../lib/authStorage";
 
 interface User {
     id: string;
@@ -14,6 +19,7 @@ interface AuthContextType {
     loading: boolean;
     login: (token: string, user: User, remember?: boolean) => void;
     logout: () => void;
+    updateUser: (user: User) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -29,7 +35,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             setLoading(false);
             return;
         }
-        
+
         const storedUser = getStoredUser<User>();
 
         if (storedUser) {
@@ -49,6 +55,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
                 setUser(null);
             })
             .finally(() => setLoading(false));
+
     }, []);
 
     function login(token: string, user: User, remember = true) {
@@ -61,8 +68,26 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setUser(null);
     }
 
+    function updateUser(updatedUser: User) {
+        setUser(updatedUser);
+
+        const token = getToken();
+
+        if (token) {
+            setSession(token, updatedUser, true);
+        }
+    }
+
     return (
-        <AuthContext.Provider value={{ user, loading, login, logout }}>
+        <AuthContext.Provider
+            value={{
+                user,
+                loading,
+                login,
+                logout,
+                updateUser,
+            }}
+        >
             {children}
         </AuthContext.Provider>
     );
@@ -70,8 +95,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
 export function useAuth() {
     const context = useContext(AuthContext);
+
     if (!context) {
         throw new Error("useAuth must be used within an AuthProvider");
     }
+
     return context;
 }
